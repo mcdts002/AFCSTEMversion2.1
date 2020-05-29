@@ -1,0 +1,480 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AFCSTEM.Areas.Identity.Data
+@inject AFCSTEM.Models.IPlayerRepository playerModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject AFCSTEM.Models.ITeamRepository TeamModel
+@{
+    ViewBag.title = "MVP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var allPlayers = playerModel.getAllPlayers();
+    var user = await UserManager.GetUserAsync(User);
+    var student = User.Identity.Name;
+    var team = TeamModel.GetTeam(student);
+    List<Player> selectedPlayers = new List<Player>();
+    Player person;
+
+    if (team != null)
+    {
+        if (team.DEF1 != 0)
+        {
+            person = (playerModel.getPlayer(team.DEF1));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.DEF2 != 0)
+        {
+            person = (playerModel.getPlayer(team.DEF2));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.DEF3 != 0)
+        {
+            person = (playerModel.getPlayer(team.DEF3));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.DEF4 != 0)
+        {
+            person = (playerModel.getPlayer(team.DEF4));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.DEF5 != 0)
+        {
+            person = (playerModel.getPlayer(team.DEF5));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.DEF6 != 0)
+        {
+            person = (playerModel.getPlayer(team.DEF6));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.FWD1 != 0)
+        {
+            person = (playerModel.getPlayer(team.FWD1));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.FWD2 != 0)
+        {
+            person = (playerModel.getPlayer(team.FWD2));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.FWD3 != 0)
+        {
+            person = (playerModel.getPlayer(team.FWD3));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.FWD4 != 0)
+        {
+            person = (playerModel.getPlayer(team.FWD4));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.FWD5 != 0)
+        {
+            person = (playerModel.getPlayer(team.FWD5));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.FWD6 != 0)
+        {
+            person = (playerModel.getPlayer(team.FWD6));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.RUCK1 != 0)
+        {
+            person = (playerModel.getPlayer(team.RUCK1));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.RUCK2 != 0)
+        {
+            person = (playerModel.getPlayer(team.RUCK2));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.MID1 != 0)
+        {
+            person = (playerModel.getPlayer(team.MID1));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.MID2 != 0)
+        {
+            person = (playerModel.getPlayer(team.MID2));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.MID3 != 0)
+        {
+            person = (playerModel.getPlayer(team.MID3));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+        if (team.MID4 != 0)
+        {
+            person = (playerModel.getPlayer(team.MID4));
+            if (person != null)
+            {
+                selectedPlayers.Add(person);
+            }
+        }
+
+
+
+    }
+}
+<style>
+    #table1 {
+        width: 100%;
+    }
+
+    #table2 {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    h1 {
+        text-align: center
+    }
+
+    #test {
+        text-align: center;
+    }
+
+    #btn {
+        background-color: white;
+        color: #002b5c;
+        border: 1px solid #002b5c;
+        font-family: 'Titillium Web', sans-serif;
+    }
+
+        #btn:hover {
+            background-color: #002b5c;
+            color: white;
+        }
+</style>
+<!--
+th,td{
+    border: 1px solid black;
+    border-collapse:collapse;
+}
+-->
+<h1 style="font-family: 'Titillium Web', sans-serif;">Crowball MVP</h1>
+
+<div class="container" style="font-family: 'Titillium Web', sans-serif;">
+    <div class="row">
+        <div class="col-md-4">
+            <table id="table1" class="" style="font-family: 'Titillium Web', sans-serif;">
+                <tr><th colspan="2" style="text-align:center;font-family: 'Titillium Web', sans-serif;background-color: #002b5c;color:white;">Set your allocations here</th></tr>
+                <tr>
+                    <th style="text-align:center;font-family: 'Titillium Web', sans-serif;background-color: #002b5c;color:white;">Statistics</th>
+                    <th style="text-align:center;font-family: 'Titillium Web', sans-serif;background-color: #002b5c;color:white;">Allocations</th>
+                </tr>
+                <tr>
+                    <td>Goals</td>
+                    <td id="test">
+                        <select onchange="checkOptions()" id="Allocations1" name="Allocations">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Behinds</td>
+                    <td id="test">
+                        <select onchange="checkOptions()" id="Allocations2" name="Allocations">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kicks</td>
+                    <td id="test">
+                        <select onchange="checkOptions()" id="Allocations3" name="Allocations">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Handballs</td>
+                    <td id="test">
+                        <select onchange="checkOptions()" id="Allocations4" name="Allocations">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Marks</td>
+                    <td id="test">
+                        <select onchange="checkOptions()" id="Allocations5" name="Allocations">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Hit-outs</td>
+                    <td id="test">
+                        <select onchange="checkOptions()" id="Allocations6" name="Allocations">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Clearances</td>
+                    <td id="test">
+                        <select onchange="checkOptions()" id="Allocations7" name="Allocations">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tackles</td>
+                    <td id="test">
+                        <select onchange="checkOptions()" id="Allocations8" name="Allocations">
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2"><p>1 = Not Important and 8 = Extremely Important</p></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-8">
+            <table id="table1" class="" style="font-family: 'Titillium Web', sans-serif;font-size:48px;top: 50%;-ms-transform: translateY(25%);transform: translateY(25%);">
+                <tr style="background-color:#e31937;color:white">
+                    <td>Team Total</td>
+                    <td style="padding-right: 10px;" align="right" id="teamTotal">0</td>
+                </tr>
+                <tr style="background-color:#ffd200;color:black">
+                    <td>Team Average</td>
+                    <td style="padding-right: 10px;" align="right" id="teamAvg">0</td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="right">
+                        <button class="btn" id="btn" onclick="mvpFunc(), sortTable()"> Calculate </button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="font-size:13px; font-family: 'Titillium Web', sans-serif;overflow-x:auto; overflow-y:auto;">
+            <table id="table2" class="table">
+                <thead>
+                    <tr style="background-color: #002b5c;color:white">
+                        <th>Total</th>
+                        <th>Position</th>
+                        <th>Player</th>
+                        <th>Price</th>
+                        <th>Goals</th>
+                        <th>Behinds</th>
+                        <th>Matches</th>
+                        <th>Kicks</th>
+                        <th>Handballs</th>
+                        <th>Disposals</th>
+                        <th>Marks</th>
+                        <th>Hit-outs</th>
+                        <th>Clearances</th>
+                        <th>Centre cir</th>
+                        <th>Tackles</th>
+                    </tr>
+                </thead>
+                <tbody id="selectedTable">
+
+                    @foreach (Player player in selectedPlayers)
+                    {
+                        if (player != null)
+                        {
+                            <tr style="" class="player" id="Stats @player.ID">
+                                <td style="background-color: #004b8d;color:white" class="total">0</td>
+                                <td class="position">@player.Position</td>
+                                <td class="name">@player.Name</td>
+                                <td class="price">@player.Price</td>
+                                <td class="goalsTotal">@player.GoalsTotal</td>
+                                <td class="behindsTotal">@player.BehindsTotal</td>
+                                <td class="matches">@player.Matches</td>
+                                <td class="kickTotal">@player.KickTotal</td>
+                                <td class="handballTotal">@player.HandballTotal</td>
+                                <td class="disposalTotal">@player.DisposalTotal</td>
+                                <td class="marksTotal">@player.MarksTotal</td>
+                                <td class="HOTotal">@player.HOTotal</td>
+                                <td class="clearanceTotal">@player.ClearanceTotal</td>
+                                <td class="centreClearanceTotal">@player.CentreClearanceTotal</td>
+                                <td class="tackleTotal">@player.TackleTotal</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    addOptions();
+    function mvpFunc() {
+        var table = document.getElementById('selectedTable');
+        //goals
+        var e = document.getElementById("Allocations1");
+        var goals = e.options[e.selectedIndex].value;
+
+        //behinds
+        e = document.getElementById("Allocations2");
+        var behinds = e.options[e.selectedIndex].value;
+        //Kicks
+        var e = document.getElementById("Allocations3");
+        var kicks = e.options[e.selectedIndex].value;
+        //Handballs
+        e = document.getElementById("Allocations4");
+        var handballs = e.options[e.selectedIndex].value;
+        //Marks
+        var e = document.getElementById("Allocations5");
+        var marks = e.options[e.selectedIndex].value;
+        //Hitouts
+        e = document.getElementById("Allocations6");
+        var hitouts = e.options[e.selectedIndex].value;
+        //Clearances
+        var e = document.getElementById("Allocations7");
+        var clearances = e.options[e.selectedIndex].value;
+        //Tackles
+        e = document.getElementById("Allocations8");
+        var tackles = e.options[e.selectedIndex].value;
+        var teamTotal = 0;
+
+        var selectedPlayers = document.getElementsByClassName("player");
+        //console.log(selectedPlayers);
+        for (var i = 0; i < selectedPlayers.length; i++) {
+            console.log(selectedPlayers[i]);
+
+            var GoalsTotal = selectedPlayers[i].getElementsByClassName("goalsTotal")[0].innerHTML;
+            var BehindsTotal = selectedPlayers[i].getElementsByClassName("behindsTotal")[0].innerHTML;
+            var KickTotal = selectedPlayers[i].getElementsByClassName("kickTotal")[0].innerHTML;
+            var HandballTotal = selectedPlayers[i].getElementsByClassName("handballTotal")[0].innerHTML;
+            var MarksTotal = selectedPlayers[i].getElementsByClassName("marksTotal")[0].innerHTML;
+            var HOTotal = selectedPlayers[i].getElementsByClassName("HOTotal")[0].innerHTML;
+            var ClearanceTotal = selectedPlayers[i].getElementsByClassName("clearanceTotal")[0].innerHTML;
+            var TackleTotal = selectedPlayers[i].getElementsByClassName("tackleTotal")[0].innerHTML;
+            var Matches = selectedPlayers[i].getElementsByClassName("matches")[0].innerHTML;
+
+            var totalPoints = 0;
+            if (Matches != 0) {
+                totalPoints += (GoalsTotal / Matches) * goals;
+                totalPoints += (BehindsTotal / Matches) * behinds;
+                totalPoints += (KickTotal / Matches) * kicks;
+                totalPoints += (HandballTotal / Matches) * handballs;
+                totalPoints += (MarksTotal / Matches) * marks;
+                totalPoints += (HOTotal / Matches) * hitouts;
+                totalPoints += (ClearanceTotal / Matches) * clearances;
+                totalPoints += (TackleTotal / Matches) * tackles;
+                teamTotal += totalPoints;
+
+                selectedPlayers[i].getElementsByClassName("total")[0].innerHTML = totalPoints.toFixed(1);
+            }
+        }
+
+        document.getElementById("teamTotal").innerHTML = teamTotal.toFixed(1);
+        document.getElementById("teamAvg").innerHTML = (teamTotal / selectedPlayers.length).toFixed(1);
+
+    }
+    function checkOptions() {
+        document.getElementById("Allocations1").style.backgroundColor = "white";
+        document.getElementById("Allocations2").style.backgroundColor = "white";
+        document.getElementById("Allocations3").style.backgroundColor = "white";
+        document.getElementById("Allocations4").style.backgroundColor = "white";
+        document.getElementById("Allocations5").style.backgroundColor = "white";
+        document.getElementById("Allocations6").style.backgroundColor = "white";
+        document.getElementById("Allocations7").style.backgroundColor = "white";
+        document.getElementById("Allocations8").style.backgroundColor = "white";
+        for (var i = 1; i <= 8; i++) {
+            var e = "Allocations" + i;
+            var selected = document.getElementById(e).selectedIndex
+            for (var j = i + 1; j <= 8; j++) {
+                var t = "Allocations" + j;
+                var compare = document.getElementById(t).selectedIndex
+                if (selected == compare) {
+                    document.getElementById(t).style.backgroundColor = "red";
+                    document.getElementById(e).style.backgroundColor = "red";
+                }
+
+            }
+
+
+        }
+    }
+    function addOptions() {
+        var s1 = document.getElementsByTagName("select");
+        for (i = 1; i < s1.length + 1; i++) {
+            for (j = 1; j <= 8; j++) {
+                var v1 = document.createElement('option');
+                v1.value = j;
+                v1.innerHTML = j;
+                s1[i - 1].appendChild(v1);
+            }
+        }
+        document.getElementById("Allocations1").selectedIndex = 0;
+        document.getElementById("Allocations2").selectedIndex = 1;
+        document.getElementById("Allocations3").selectedIndex = 2;
+        document.getElementById("Allocations4").selectedIndex = 3;
+        document.getElementById("Allocations5").selectedIndex = 4;
+        document.getElementById("Allocations6").selectedIndex = 5;
+        document.getElementById("Allocations7").selectedIndex = 6;
+        document.getElementById("Allocations8").selectedIndex = 7;
+    }
+    function sortTable() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("table2");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[0];
+                y = rows[i + 1].getElementsByTagName("TD")[0];
+                if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+</script>

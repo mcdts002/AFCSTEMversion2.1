@@ -1,0 +1,80 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AFCSTEM.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - AFCSTEM</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav style="background-color: #002b5c;font-family:'Titillium Web', sans-serif;" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/Images/AFC_Logo.png" width="130" height="50" />
+                </a>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Crowball">Crowball</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="MVP">MVP</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Survey">Survey</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" style="text-align:left;">Proudly supported by CCF</div>
+                <div class="col-md-3" style="text-align:right;">&copy; 2020 - AFCSTEM</div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/Scripts/jspdf.js"></script>
+    <script src="~/Scripts/jspdf.plugin.from_html.js"></script>
+    <script src="~/Scripts/jspdf.plugin.split_text_to_size.js"></script>
+    <script src="~/Scripts/jspdf.plugin.standard_fonts_metrics.js"></script>
+    <script src="~/Scripts/jspdf.min.js"></script>
+    <script src="~/Scripts/jspdf.plugin.autotable.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@1,700&display=swap" rel="stylesheet">
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

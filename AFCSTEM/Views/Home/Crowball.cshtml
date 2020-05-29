@@ -1,0 +1,1926 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AFCSTEM.Areas.Identity.Data
+@inject AFCSTEM.Models.IPlayerRepository playerModel
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject AFCSTEM.Models.ITeamRepository TeamModel
+@{
+    ViewBag.title = "Home";
+    var allPlayers = playerModel.getAllPlayers();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = await UserManager.GetUserAsync(User);
+    var student = User.Identity.Name;
+    var team = TeamModel.GetTeam(student);
+}
+<style type="text/css">
+    #topRow {
+        margin-top: 20px;
+        height: 600px;
+    }
+
+    #teamList {
+        background-image: url('../images/AFLField.png');
+        background-size: 100% 100%;
+    }
+
+    .fRow {
+        height: 16%;
+        margin-bottom: 2px;
+        text-align: center;
+    }
+
+    .sMid {
+        color: #ffd200;
+        width: 33%;
+    }
+
+    .sRuck {
+        color: #ffd200;
+        width: 33%;
+    }
+
+    .sDef {
+        color: #e31937;
+        width: 33%;
+    }
+
+    .sFwd {
+        color: #002b5c;
+        width: 33%;
+    }
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        width: 100%;
+    }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: #002b5c;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 5px 5px;
+            transition: 0.3s;
+            font-size: 17px;
+            width: 25%;
+            height: 100%;
+            color: white;
+            font-family: 'Titillium Web', sans-serif;
+        }
+
+            /* Change background color of buttons on hover */
+            .tab button:hover {
+                background-color: #33619e;
+            }
+
+            /* Create an active/current tablink class */
+            .tab button.active {
+                background-color: #004b8d;
+            }
+
+    /* Style the tab content */
+    .tabcontent {
+        padding: 6px 6px;
+        border: 1px solid #ccc;
+        height: 90%;
+        width: 100%;
+        overflow: scroll;
+        margin-bottom: 5px;
+    }
+
+    .removable {
+        margin-bottom: 5px;
+    }
+
+    .btn {
+        margin-right: 5px;
+        text-align: center;
+        transition-duration: 0.4s;
+    }
+
+    #pdfbtn {
+        background-color: white;
+        color: #002b5c;
+        border: 1px solid #002b5c;
+        font-family: 'Titillium Web', sans-serif;
+    }
+
+        #pdfbtn:hover {
+            background-color: #002b5c;
+            color: white;
+        }
+
+    #savebtn {
+        background-color: white;
+        color: #e31937;
+        border: 1px solid #e31937;
+        font-family: 'Titillium Web', sans-serif;
+    }
+
+        #savebtn:hover {
+            background-color: #e31937;
+            color: white;
+        }
+
+    #posibtn {
+        background-color: white;
+        color: #ffd200;
+        border: 1px solid #ffd200;
+        font-family: 'Titillium Web', sans-serif;
+    }
+
+        #posibtn:hover {
+            background-color: #ffd200;
+            color: white;
+        }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.3/jspdf.plugin.autotable.min.js"></script>
+<h1 id="titlecard" style="        font-family: 'Titillium Web', sans-serif;
+        text-align: center;
+        color: #002b5c;">
+    --- Select Your Team! ---
+</h1>
+
+<div class="container">
+    <!--This section is for display of field and selectons-->
+    <div class="row" id="topRow">
+
+        <!--This section is the displaying of players on the field. There are 6 rows each with 3 columns-->
+        <div id="teamList" class="col-md-9">
+
+            <!--Row 1-->
+            <div class="row fRow" style="margin-top:10px;">
+                <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
+                    @if (team != null && team.DEF1 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.DEF1">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.DEF1).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.DEF1).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.DEF1).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.DEF1).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.DEF1).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="font-family: 'Titillium Web', sans-serif">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sMid" ondrop="drop(event, 'MID')" ondragover="allowDrop(event)" onclick="remove(this, event, 'MID')">
+                    @if (team != null && team.MID1 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">MID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.MID1">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.MID1).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.MID1).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.MID1).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.MID1).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.MID1).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">MID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sFwd" ondrop="drop(event, 'FWD')" ondragover="allowDrop(event)" onclick="remove(this, event, 'FWD')">
+                    @if (team != null && team.FWD1 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.FWD1">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.FWD1).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.FWD1).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.FWD1).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.FWD1).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.FWD1).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+            </div>
+
+            <!--Row 2-->
+            <div class="row fRow">
+                <div id="stopHere" class="col-md sDef" style="text-align:center;" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
+                    @if (team != null && team.DEF2 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.DEF2">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.DEF2).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.DEF2).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.DEF2).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.DEF2).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.DEF2).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sMid" style="text-align: center;" ondrop="drop(event, 'MID')" ondragover="allowDrop(event)" onclick="remove(this, event, 'MID')">
+                    @if (team != null && team.MID2 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">MID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.MID2">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.MID2).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.MID2).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.MID2).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.MID2).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.MID2).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">MID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sFwd" style="text-align:center;" ondrop="drop(event, 'FWD')" ondragover="allowDrop(event)" onclick="remove(this, event, 'FWD')">
+                    @if (team != null && team.FWD2 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.FWD2">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.FWD2).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.FWD2).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.FWD2).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.FWD2).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.FWD2).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+            </div>
+
+            <!--Row 3-->
+            <div class="row fRow">
+                <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
+                    @if (team != null && team.DEF3 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.DEF3">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.DEF3).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.DEF3).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.DEF3).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.DEF3).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.DEF3).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sRuck" ondrop="drop(event, 'RUCK')" ondragover="allowDrop(event)" onclick="remove(this, event, 'RUCK')">
+                    @if (team != null && team.RUCK1 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">RUCK</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.RUCK1">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.RUCK1).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.RUCK1).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.RUCK1).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.RUCK1).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.RUCK1).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">RUCK</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sFwd" ondrop="drop(event, 'FWD')" ondragover="allowDrop(event)" onclick="remove(this, event, 'FWD')">
+                    @if (team != null && team.FWD3 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.FWD3">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.FWD3).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.FWD3).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.FWD3).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.FWD3).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.FWD3).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+            </div>
+
+            <!--Row 4-->
+            <div class="row fRow">
+                <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
+                    @if (team != null && team.DEF4 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.DEF4">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.DEF4).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.DEF4).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.DEF4).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.DEF4).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.DEF4).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sRuck" ondrop="drop(event, 'RUCK')" ondragover="allowDrop(event)" onclick="remove(this, event, 'RUCK')">
+                    @if (team != null && team.RUCK2 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">RUCK</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.RUCK2">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.RUCK2).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.RUCK2).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.RUCK2).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.RUCK2).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.RUCK2).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">RUCK</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sFwd" ondrop="drop(event, 'FWD')" ondragover="allowDrop(event)" onclick="remove(this, event, 'FWD')">
+                    @if (team != null && team.FWD4 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.FWD4">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.FWD4).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.FWD4).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.FWD4).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.FWD4).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.FWD4).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+
+            </div>
+
+            <!--Row 5-->
+            <div class="row fRow">
+                <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
+                    @if (team != null && team.DEF5 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.DEF5">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.DEF5).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.DEF5).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.DEF5).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.DEF5).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.DEF5).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sMid" ondrop="drop(event, 'MID')" ondragover="allowDrop(event)" onclick="remove(this, event, 'MID')">
+                    @if (team != null && team.MID3 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">MID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.MID3">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.MID3).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.MID3).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.MID3).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.MID3).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.MID3).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">MID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sFwd" ondrop="drop(event, 'FWD')" ondragover="allowDrop(event)" onclick="remove(this, event, 'FWD')">
+                    @if (team != null && team.FWD5 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.FWD5">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.FWD5).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.FWD5).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.FWD5).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.FWD5).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.FWD5).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+            </div>
+
+            <!--Row 6-->
+            <div class="row fRow">
+                <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
+                    @if (team != null && team.DEF6 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.DEF6">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.DEF6).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.DEF6).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.DEF6).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.DEF6).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.DEF6).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">DEF</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sMid" ondrop="drop(event, 'MID')" ondragover="allowDrop(event)" onclick="remove(this, event, 'MID')">
+                    @if (team != null && team.MID4 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">MID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.MID4">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.MID4).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.MID4).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.MID4).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.MID4).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.MID4).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">MID</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+                <div id="stopHere" class="col-md sFwd" ondrop="drop(event, 'FWD')" ondragover="allowDrop(event)" onclick="remove(this, event, 'FWD')">
+                    @if (team != null && team.FWD6 != 0)
+                    {
+                        <table align="center" id="poster" class="poster" style="display:none">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="removable" draggable="true" ondragstart="drag(event)" id="@team.FWD6">
+                            <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(playerModel.getPlayer(team.FWD6).Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                        <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@playerModel.getPlayer(team.FWD6).Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@playerModel.getPlayer(team.FWD6).Position</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@playerModel.getPlayer(team.FWD6).Price</td>
+                                        <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@playerModel.getPlayer(team.FWD6).Gender</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <table align="center" id="poster" class="poster" style="">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="1"><img src="~/Images/silhouette.png" height="65" width="55"></td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="font-family: 'Titillium Web', sans-serif">FWD</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--This section is for showing/choosing your players-->
+        <div class="col-md-3">
+            <div class="row" style="height:500px;">
+                <div class="tab">
+                    <button class="tablinks" onclick="playerPos(event, 'DEF')">DEF</button>
+                    <button class="tablinks" onclick="playerPos(event, 'MID')">MID</button>
+                    <button class="tablinks" onclick="playerPos(event, 'RUCK')">RUCK</button>
+                    <button class="tablinks" onclick="playerPos(event, 'FWD')">FWD</button>
+                </div>
+
+                <!--This section is for the table of DEFENDERS-->
+                <div id="DEF" class="tabcontent">
+                    @foreach (var person in allPlayers)
+                    {
+                        @if (person.Position.Equals("DEF") && (team == null || (person.ID != team.DEF1 && person.ID != team.DEF2 && person.ID != team.DEF3 && person.ID != team.DEF4 && person.ID != team.DEF5 && person.ID != team.DEF6)))
+                        {
+                            <div class="removable" draggable="true" ondragstart="drag(event)" id="@person.ID">
+                                <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(person.Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                            <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@person.Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@person.Position</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@person.Price</td>
+                                            <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@person.Gender</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!--This section is for the table of MIDFIELDERS-->
+                <div id="MID" class="tabcontent">
+                    @foreach (var person in allPlayers)
+                    {
+                        @if (person.Position.Equals("MID") && (team == null || (person.ID != team.MID1 && person.ID != team.MID2 && person.ID != team.MID3 && person.ID != team.MID4)))
+                        {
+                            <div class="removable" draggable="true" ondragstart="drag(event)" id="@person.ID">
+                                <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(person.Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                            <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@person.Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@person.Position</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@person.Price</td>
+                                            <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@person.Gender</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <!--This section is for the table of RUCKS-->
+                <div id="RUCK" class="tabcontent">
+                    @foreach (var person in allPlayers)
+                    {
+                        @if (person.Position.Equals("RUCK") && (team == null || (person.ID != team.RUCK1 && person.ID != team.RUCK2)))
+                        {
+                            <div class="removable" draggable="true" ondragstart="drag(event)" id="@person.ID">
+                                <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(person.Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                            <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@person.Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@person.Position</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@person.Price</td>
+                                            <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@person.Gender</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    }
+
+                </div>
+
+                <!--This section is for the table of FORWARDS-->
+                <div id="FWD" class="tabcontent">
+                    @foreach (var person in allPlayers)
+                    {
+                        @if (person.Position.Equals("FWD") && (team == null || (person.ID != team.FWD1 && person.ID != team.FWD2 && person.ID != team.FWD3 && person.ID != team.FWD4 && person.ID != team.FWD5 && person.ID != team.FWD6)))
+                        {
+                            <div class="removable" draggable="true" ondragstart="drag(event)" id="@person.ID">
+                                <table style="width:100%; border:1px solid black; background-color:#004b8d">
+                                    <tbody>
+                                        <tr>
+                                            <td style="width:55px;" rowspan="3"><img style="object-fit:cover" src="~/Images/Players/@(person.Name.Replace(" ", "_") + ".png")" onerror="this.src = '../Images/silhouette.png';" height="65" width="55"></td>
+                                            <td style="text-align:left;color:white;font-family:'Titillium Web', sans-serif; background-color:#e31937" colspan="3">@person.Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left; color:black;font-family:'Titillium Web', sans-serif; background-color:#ffd200" colspan="3">@person.Position</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" style="text-align:left; color:white;font-family:'Titillium Web', sans-serif;">$@person.Price</td>
+                                            <td style="text-align:center; color:white;font-family:'Titillium Web', sans-serif;">@person.Gender</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <!--This section is for the checkpoint-->
+            <div class="row" style="height:85px; margin-top:13px;">
+                <table id="checkPoint" style="border:solid 1px black; width:100%; text-align:left;">
+                    <thead style="border:solid 1px black;">
+                        <tr>
+                            <th style="background-color: #002b5c;font-family:'Titillium Web', sans-serif;border:solid 1px black;color:white ">CHECKPOINT</th>
+                        </tr>
+                    </thead>
+                    <tbody style="border:solid 1px black;">
+                        <tr style="font-family:'Titillium Web', sans-serif;"><td style="width:50%;">Total Males:</td><td id="malesCount">0</td></tr>
+                        <tr style="font-family:'Titillium Web', sans-serif;"><td style="width:50%;">Total Females:</td><td id="femalesCount">0</td></tr>
+                        <tr style="font-family:'Titillium Web', sans-serif;"><td style="width:50%;">Total Price:</td><td id="priceCount">0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top:30px;">
+        <div class="col-md-12">
+            <button onclick="pdfTeam()" class="btn" id="pdfbtn" type="button">Export to PDF</button>
+            <button onclick="saveTeam()" class="btn" id="savebtn" type="button">Save team</button>
+            <button onclick="showPost(), updatePos()" class="btn" id="posibtn" type="button"> Positional Analysis </button>
+        </div>
+    </div>
+
+    <!--This section is for player selections all in one-->
+    <div class="row text-nowrap" style="margin-top:20px;">
+        <div id="pdfPlayers" class="col-sm-12" style="font-size:11px; font-family: 'Titillium Web', sans-serif;overflow-x:auto; overflow-y:auto;">
+            <table id="SelectedTable" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Player</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Height</th>
+                        <th>Price</th>
+                        <th>Goals</th>
+                        <th>Behinds</th>
+                        <th>Matches</th>
+                        <th>Kicks</th>
+                        <th>Handballs</th>
+                        <th>Disposals</th>
+                        <th>Marks</th>
+                        <th>Hit-outs</th>
+                        <th>Clearances</th>
+                        <th>Centre cir</th>
+                        <th>Tackles</th>
+                    </tr>
+                </thead>
+                <tbody class="playerBody" id="selectedTable">
+                    @foreach (var person in allPlayers)
+                    {
+                        @if (team != null && (person.ID == team.DEF1 || person.ID == team.DEF2 || person.ID == team.DEF3 || person.ID == team.DEF4 ||
+                                        person.ID == team.DEF5 || person.ID == team.DEF6 || person.ID == team.MID1 || person.ID == team.MID2 ||
+                                        person.ID == team.MID3 || person.ID == team.MID4 || person.ID == team.RUCK1 || person.ID == team.RUCK2 ||
+                                        person.ID == team.FWD1 || person.ID == team.FWD2 || person.ID == team.FWD3 || person.ID == team.FWD4 ||
+                                        person.ID == team.FWD5 || person.ID == team.FWD6))
+                        {
+                            <tr style="" id="Stats @person.ID">
+                                <td class="position">@person.Position</td>
+                                <td class="name">@person.Name</td>
+                                <td class="gender">@person.Gender</td>
+                                <td class="age">@person.Age</td>
+                                <td class="height">@person.Height</td>
+                                <td class="price">@person.Price</td>
+                                <td class="goalsTotal">@person.GoalsTotal</td>
+                                <td class="behindsTotal">@person.BehindsTotal</td>
+                                <td class="matches">@person.Matches</td>
+                                <td class="kickTotal">@person.KickTotal</td>
+                                <td class="handballTotal">@person.HandballTotal</td>
+                                <td class="disposalTotal">@person.DisposalTotal</td>
+                                <td class="marksTotal">@person.MarksTotal</td>
+                                <td class="HOTotal">@person.HOTotal</td>
+                                <td class="clearanceTotal">@person.ClearanceTotal</td>
+                                <td class="centreClearanceTotal">@person.CentreClearanceTotal</td>
+                                <td class="tackleTotal">@person.TackleTotal</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr style="display:none" id="Stats @person.ID">
+                                <td class="position">@person.Position</td>
+                                <td class="name">@person.Name</td>
+                                <td class="gender">@person.Gender</td>
+                                <td class="age">@person.Age</td>
+                                <td class="height">@person.Height</td>
+                                <td class="price">@person.Price</td>
+                                <td class="goalsTotal">@person.GoalsTotal</td>
+                                <td class="behindsTotal">@person.BehindsTotal</td>
+                                <td class="matches">@person.Matches</td>
+                                <td class="kickTotal">@person.KickTotal</td>
+                                <td class="handballTotal">@person.HandballTotal</td>
+                                <td class="disposalTotal">@person.DisposalTotal</td>
+                                <td class="marksTotal">@person.MarksTotal</td>
+                                <td class="HOTotal">@person.HOTotal</td>
+                                <td class="clearanceTotal">@person.ClearanceTotal</td>
+                                <td class="centreClearanceTotal">@person.CentreClearanceTotal</td>
+                                <td class="tackleTotal">@person.TackleTotal</td>
+                            </tr>
+
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row" hidden="true" id="propAnal" style="margin-top:50px;">
+        <div class="col-md-12">
+
+            <div class="row" style="font-size:12px; font-family: 'Titillium Web', sans-serif;overflow-x:auto;">
+                <table class="table table-bordered">
+                    <tr>
+                        <th style="background-color: #002b5c;color:white">Average</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: #002b5c;color:white">Position</th>
+                        <th style="background-color: #002b5c;color:white">Price</th>
+                        <th style="background-color: #002b5c;color:white">Goals</th>
+                        <th style="background-color: #002b5c;color:white">Behinds</th>
+                        <th style="background-color: #002b5c;color:white">Matches</th>
+                        <th style="background-color: #002b5c;color:white">Height</th>
+                        <th style="background-color: #002b5c;color:white">Age</th>
+                        <th style="background-color: #002b5c;color:white">Kicks</th>
+                        <th style="background-color: #002b5c;color:white">Handballs</th>
+                        <th style="background-color: #002b5c;color:white">Disposals</th>
+                        <th style="background-color: #002b5c;color:white">Marks</th>
+                        <th style="background-color: #002b5c;color:white">Hit-outs</th>
+                        <th style="background-color: #002b5c;color:white">Clearances</th>
+                        <th style="background-color: #002b5c;color:white">Centre Clr</th>
+                        <th style="background-color: #002b5c;color:white">Tackles</th>
+                    </tr>
+                    <tr>
+                        <th>Defenders</th>
+                        <td id="defPrice"></td>
+                        <td id="defGoals"></td>
+                        <td id="defBehinds"></td>
+                        <td id="defMatches"></td>
+                        <td id="defHeight"></td>
+                        <td id="defAge"></td>
+                        <td id="defKicks"></td>
+                        <td id="defHandballs"></td>
+                        <td id="defDisposals"></td>
+                        <td id="defMarks"></td>
+                        <td id="defHO"></td>
+                        <td id="defClearances"></td>
+                        <td id="defCentreC"></td>
+                        <td id="defTackles"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Midfielders/Ruck</th>
+                        <td id="midPrice"></td>
+                        <td id="midGoals"></td>
+                        <td id="midBehinds"></td>
+                        <td id="midMatches"></td>
+                        <td id="midHeight"></td>
+                        <td id="midAge"></td>
+                        <td id="midKicks"></td>
+                        <td id="midHandballs"></td>
+                        <td id="midDisposals"></td>
+                        <td id="midMarks"></td>
+                        <td id="midHO"></td>
+                        <td id="midClearances"></td>
+                        <td id="midCentreC"></td>
+                        <td id="midTackles"></td>
+                    </tr>
+                    <tr>
+                        <th>Forwards</th>
+                        <td id="fwdPrice"></td>
+                        <td id="fwdGoals"></td>
+                        <td id="fwdBehinds"></td>
+                        <td id="fwdMatches"></td>
+                        <td id="fwdHeight"></td>
+                        <td id="fwdAge"></td>
+                        <td id="fwdKicks"></td>
+                        <td id="fwdHandballs"></td>
+                        <td id="fwdDisposals"></td>
+                        <td id="fwdMarks"></td>
+                        <td id="fwdHO"></td>
+                        <td id="fwdClearances"></td>
+                        <td id="fwdCentreC"></td>
+                        <td id="fwdTackles"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="row" style="margin-top:20px;">
+                <canvas id="canvas" width="700" height="400" style="border: 1px solid black;"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    colorRow()
+    document.getElementById("selectedTable").addEventListener("load", updateCheckpoint());
+    var allPlayersTable;
+    var posMovingPlayer;
+
+    playerPos(event, 'DEF');
+    var menCount = 0;
+    var womenCount = 0;
+    var teamCost = 0;
+
+    function showPost() {
+        var x = document.getElementById("propAnal");
+        if (x.hidden === true) {
+            x.hidden = false;
+        }
+        else {
+            x.hidden = true;
+        }
+    }
+
+    function colorRow() {
+        var table = document.getElementById('SelectedTable');
+        var rows = table.rows;
+
+        for (i = 1; i < rows.length; i++) {
+            var row = rows[i]
+            var cells = row.cells;
+            if (cells[0].innerHTML == 'DEF') {
+                row.style.backgroundColor = '#e31937';
+                row.style.color = 'white';
+            } else if (cells[0].innerHTML == 'FWD') {
+                row.style.backgroundColor = '#33619e';
+                row.style.color = 'white';
+            } else {
+                row.style.backgroundColor = '#ffd200';
+
+            }
+        }
+    }
+
+    function updatePos() {
+        var table = document.getElementById("selectedTable");
+        var defCount = 0;
+        var fwdCount = 0;
+        var midCount = 0;
+
+        //defender stats
+        var defPrice = 0;
+        var defGoals = 0;
+        var defBehinds = 0;
+        var defMatches = 0;
+        var defHeight = 0;
+        var defAge = 0;
+        var defKicks = 0;
+        var defHandballs = 0;
+        var defDisposals = 0;
+        var defMarks = 0;
+        var defHO = 0;
+        var defClearances = 0;
+        var defCentreC = 0;
+        var defTackles = 0;
+
+        //forward stats
+        var fwdPrice = 0;
+        var fwdGoals = 0;
+        var fwdBehinds = 0;
+        var fwdMatches = 0;
+        var fwdHeight = 0;
+        var fwdAge = 0;
+        var fwdKicks = 0;
+        var fwdHandballs = 0;
+        var fwdDisposals = 0;
+        var fwdMarks = 0;
+        var fwdHO = 0;
+        var fwdClearances = 0;
+        var fwdCentreC = 0;
+        var fwdTackles = 0;
+
+        //mid/ruck stats
+        var midPrice = 0;
+        var midGoals = 0;
+        var midBehinds = 0;
+        var midMatches = 0;
+        var midHeight = 0;
+        var midAge = 0;
+        var midKicks = 0;
+        var midHandballs = 0;
+        var midDisposals = 0;
+        var midMarks = 0;
+        var midHO = 0;
+        var midClearances = 0;
+        var midCentreC = 0;
+        var midTackles = 0;
+
+        for (var i = 1; i < document.getElementById("selectedTable").rows.length+1; i++) {
+            var id = "Stats " + i;
+
+            if (document.getElementById(id) != null) {
+
+                if (document.getElementById(id).style.display == "") {
+
+                    //defenders
+                    if (table.rows[i-1].cells[0].innerHTML == "DEF") {
+                        defPrice += parseInt(table.rows[i - 1].cells[5].innerHTML);
+                        defGoals += parseInt(table.rows[i - 1].cells[6].innerHTML);
+                        defBehinds += parseInt(table.rows[i - 1].cells[7].innerHTML);
+                        defMatches += parseInt(table.rows[i - 1].cells[8].innerHTML);
+                        defHeight += parseInt(table.rows[i - 1].cells[4].innerHTML);
+                        defAge += parseInt(table.rows[i - 1].cells[3].innerHTML);
+                        defKicks += parseInt(table.rows[i - 1].cells[9].innerHTML);
+                        defHandballs += parseInt(table.rows[i - 1].cells[10].innerHTML);
+                        defDisposals += parseInt(table.rows[i - 1].cells[11].innerHTML);
+                        defMarks += parseInt(table.rows[i - 1].cells[12].innerHTML);
+                        defHO += parseInt(table.rows[i - 1].cells[13].innerHTML);
+                        defClearances += parseInt(table.rows[i - 1].cells[14].innerHTML);
+                        defCentreC += parseInt(table.rows[i - 1].cells[15].innerHTML);
+                        defTackles += parseInt(table.rows[i - 1].cells[16].innerHTML);
+                        //number of defenders in selected team.
+                        defCount++;
+                    }
+                    else if (table.rows[i-1].cells[0].innerHTML == "FWD") {
+                        fwdPrice += parseInt(table.rows[i - 1].cells[5].innerHTML);
+                        fwdGoals += parseInt(table.rows[i - 1].cells[6].innerHTML);
+                        fwdBehinds += parseInt(table.rows[i - 1].cells[7].innerHTML);
+                        fwdMatches += parseInt(table.rows[i - 1].cells[8].innerHTML);
+                        fwdHeight += parseInt(table.rows[i - 1].cells[4].innerHTML);
+                        fwdAge += parseInt(table.rows[i - 1].cells[3].innerHTML);
+                        fwdKicks += parseInt(table.rows[i - 1].cells[9].innerHTML);
+                        fwdHandballs += parseInt(table.rows[i - 1].cells[10].innerHTML);
+                        fwdDisposals += parseInt(table.rows[i - 1].cells[11].innerHTML);
+                        fwdMarks += parseInt(table.rows[i - 1].cells[12].innerHTML);
+                        fwdHO += parseInt(table.rows[i - 1].cells[13].innerHTML);
+                        fwdClearances += parseInt(table.rows[i - 1].cells[14].innerHTML);
+                        fwdCentreC += parseInt(table.rows[i - 1].cells[15].innerHTML);
+                        fwdTackles += parseInt(table.rows[i - 1].cells[16].innerHTML);
+                        //number of forwards
+                        fwdCount++;
+                    }
+                    else {
+                        midPrice += parseInt(table.rows[i - 1].cells[5].innerHTML);
+                        midGoals += parseInt(table.rows[i - 1].cells[6].innerHTML);
+                        midBehinds += parseInt(table.rows[i - 1].cells[7].innerHTML);
+                        midMatches += parseInt(table.rows[i - 1].cells[8].innerHTML);
+                        midHeight += parseInt(table.rows[i - 1].cells[4].innerHTML);
+                        midAge += parseInt(table.rows[i - 1].cells[3].innerHTML);
+                        midKicks += parseInt(table.rows[i - 1].cells[9].innerHTML);
+                        midHandballs += parseInt(table.rows[i - 1].cells[10].innerHTML);
+                        midDisposals += parseInt(table.rows[i - 1].cells[11].innerHTML);
+                        midMarks += parseInt(table.rows[i - 1].cells[12].innerHTML);
+                        midHO += parseInt(table.rows[i - 1].cells[13].innerHTML);
+                        midClearances += parseInt(table.rows[i - 1].cells[14].innerHTML);
+                        midCentreC += parseInt(table.rows[i - 1].cells[15].innerHTML);
+                        midTackles += parseInt(table.rows[i - 1].cells[16].innerHTML);
+                        //number of mid/rucks
+                        midCount++;
+                    }
+
+                }
+
+            }
+
+
+
+        }
+        //defenders table update
+        document.getElementById("defPrice").innerHTML = parseInt(defPrice / defCount);
+        document.getElementById("defGoals").innerHTML = parseFloat((defGoals / defMatches) / defCount).toFixed(2);
+        document.getElementById("defBehinds").innerHTML = parseFloat((defBehinds / defMatches) / defCount).toFixed(2);
+        document.getElementById("defMatches").innerHTML = parseInt(defMatches / defCount);
+        document.getElementById("defHeight").innerHTML = parseInt(defHeight / defCount);
+        document.getElementById("defAge").innerHTML = parseInt(defAge / defCount);
+        document.getElementById("defKicks").innerHTML = parseFloat((defKicks/defMatches) / defCount).toFixed(2);
+        document.getElementById("defHandballs").innerHTML = parseFloat((defHandballs / defMatches) / defCount).toFixed(2);
+        document.getElementById("defDisposals").innerHTML = parseFloat((defDisposals / defMatches) / defCount).toFixed(2);
+        document.getElementById("defMarks").innerHTML = parseFloat((defMarks / defMatches) / defCount).toFixed(2);
+        document.getElementById("defHO").innerHTML = parseFloat((defHO / defMatches) / defCount).toFixed(2);
+        document.getElementById("defClearances").innerHTML = parseFloat((defClearances / defMatches) / defCount).toFixed(2);
+        document.getElementById("defCentreC").innerHTML = parseFloat((defCentreC / defMatches) / defCount).toFixed(2);
+        document.getElementById("defTackles").innerHTML = parseFloat((defTackles / defMatches) / defCount).toFixed(2);
+        //forwards table update
+        document.getElementById("fwdPrice").innerHTML = parseInt(fwdPrice / fwdCount);
+        document.getElementById("fwdGoals").innerHTML = parseFloat((fwdGoals / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdBehinds").innerHTML = parseFloat((fwdBehinds / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdMatches").innerHTML = parseInt(fwdMatches / fwdCount);
+        document.getElementById("fwdHeight").innerHTML = parseInt(fwdHeight / fwdCount);
+        document.getElementById("fwdAge").innerHTML = parseInt(fwdAge / fwdCount);
+        document.getElementById("fwdKicks").innerHTML = parseFloat((fwdKicks / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdHandballs").innerHTML = parseFloat((fwdHandballs / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdDisposals").innerHTML = parseFloat((fwdDisposals / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdMarks").innerHTML = parseFloat((fwdMarks / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdHO").innerHTML = parseFloat((fwdHO / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdClearances").innerHTML = parseFloat((fwdClearances / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdCentreC").innerHTML = parseFloat((fwdCentreC / fwdMatches) / fwdCount).toFixed(2);
+        document.getElementById("fwdTackles").innerHTML = parseFloat((fwdTackles / fwdMatches) / fwdCount).toFixed(2);
+        //mids/rucks table update
+        document.getElementById("midPrice").innerHTML = parseInt(midPrice / midCount);
+        document.getElementById("midGoals").innerHTML = parseFloat((midGoals / midMatches) / midCount).toFixed(2);
+        document.getElementById("midBehinds").innerHTML = parseFloat((midBehinds / midMatches) / midCount).toFixed(2);
+        document.getElementById("midMatches").innerHTML = parseInt(midMatches / midCount);
+        document.getElementById("midHeight").innerHTML = parseInt(midHeight / midCount);
+        document.getElementById("midAge").innerHTML = parseInt(midAge / midCount);
+        document.getElementById("midKicks").innerHTML = parseFloat((midKicks / midMatches) / midCount).toFixed(2);
+        document.getElementById("midHandballs").innerHTML = parseFloat((midHandballs / midMatches) / midCount).toFixed(2);
+        document.getElementById("midDisposals").innerHTML = parseFloat((midDisposals / midMatches) / midCount).toFixed(2);
+        document.getElementById("midMarks").innerHTML = parseFloat((midMarks / midMatches) / midCount).toFixed(2);
+        document.getElementById("midHO").innerHTML = parseFloat((midHO / midMatches) / midCount).toFixed(2);
+        document.getElementById("midClearances").innerHTML = parseFloat((midClearances / midMatches) / midCount).toFixed(2);
+        document.getElementById("midCentreC").innerHTML = parseFloat((midCentreC / midMatches) / midCount).toFixed(2);
+        document.getElementById("midTackles").innerHTML = parseFloat((midTackles / midMatches) / midCount).toFixed(2);
+
+        //graph script
+        var graph = document.getElementById("canvas").getContext("2d");
+
+        graph.clearRect(0, 0, 700, 400);
+
+
+        //graph lines
+        graph.fillStyle = "black";
+        graph.fillRect(0, 0, 1, 380);
+        graph.fillRect(0, 380, 1000, 2);
+        graph.fillRect(50, 377, 2, 5);
+        graph.fillRect(100, 377, 2, 10);
+        graph.strokeText("10", 95, 395);
+        graph.fillRect(150, 377, 2, 5);
+        graph.fillRect(200, 377, 2, 10);
+        graph.strokeText("20", 195, 395);
+        graph.fillRect(250, 377, 2, 5);
+        graph.fillRect(300, 377, 2, 10);
+        graph.strokeText("30", 295, 395);
+        graph.strokeText("-- Total -- ", 360, 395);
+
+
+
+
+
+
+
+        graph.strokeText("Kicks: ", 260, 20);
+        graph.strokeText("Handballs: ", 360, 20);
+        graph.strokeText("Disposals: ", 460, 20);
+        graph.strokeText("Defenders", 600, 50);
+        graph.strokeText("Midfielders/Rucks: ", 600, 130);
+        graph.strokeText("Forwards", 600, 210);
+        graph.strokeText("Team", 600, 290);
+
+
+        //defenders
+        graph.fillStyle = "red";
+        graph.fillRect(300, 10, 10, 10);
+        graph.fillRect(0, 10, 10 * (defKicks / defMatches), 20);
+        graph.strokeText(parseInt(defKicks / defMatches), 10 * (defKicks / defMatches) + 5, 20)
+
+
+        graph.fillStyle = "yellow";
+        graph.fillRect(420, 10, 10, 10);
+        graph.fillRect(0, 30, 10 * (defHandballs / defMatches), 20);
+        graph.strokeText(parseInt(defHandballs / defMatches), 10 * (defHandballs / defMatches) + 5, 40)
+
+
+        graph.fillStyle = "blue";
+        graph.fillRect(520, 10, 10, 10);
+        graph.fillRect(0, 50, 10 * (defDisposals / defMatches), 20);
+        graph.strokeText(parseInt(defDisposals / defMatches), 10 * (defDisposals / defMatches) + 5, 60)
+
+
+        //midfields/ruck
+        graph.fillStyle = "red";
+        graph.fillRect(0, 90, 10 * (midKicks / midMatches), 20);
+        graph.strokeText(parseInt(midKicks / midMatches), 10 * (midKicks / midMatches) + 5, 100)
+
+        graph.fillStyle = "yellow";
+        graph.fillRect(0, 110, 10 * (midHandballs / midMatches), 20);
+        graph.strokeText(parseInt(midHandballs / midMatches), 10 * (midHandballs / midMatches) + 5, 120);
+
+        graph.fillStyle = "blue";
+        graph.fillRect(0, 130, 10 * (midDisposals / midMatches), 20);
+        graph.strokeText(parseInt(midDisposals / midMatches), 10 * (midDisposals / midMatches) + 5, 140);
+
+
+        //forwards
+        graph.fillStyle = "red";
+        graph.fillRect(0, 170, 10 * (fwdKicks / fwdMatches), 20);
+        graph.strokeText(parseInt(fwdKicks / fwdMatches), 10 * (fwdKicks / fwdMatches) + 5, 180);
+
+        graph.fillStyle = "yellow";
+        graph.fillRect(0, 190, 10 * (fwdHandballs / fwdMatches), 20);
+        graph.strokeText(parseInt(fwdHandballs / fwdMatches), 10 * (fwdHandballs / fwdMatches) + 5, 200);
+
+        graph.fillStyle = "blue";
+        graph.fillRect(0, 210, 10 * (fwdDisposals / fwdMatches), 20);
+        graph.strokeText(parseInt(fwdDisposals / fwdMatches), 10 * (fwdDisposals / fwdMatches) + 5, 220);
+
+        //total
+
+        graph.fillStyle = "red";
+        graph.fillRect(0, 250, 10 * ((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)), 20);
+        graph.strokeText(parseInt((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)), 10 * ((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)) + 5, 260);
+
+        graph.fillStyle = "yellow";
+        graph.fillRect(0, 270, 10 * ((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)), 20);
+        graph.strokeText(parseInt((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)), 10 * ((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)) + 5, 280);
+
+        graph.fillStyle = "blue";
+        graph.fillRect(0, 290, 10 * ((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)), 20);
+        graph.strokeText(parseInt((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)), 10 * ((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)) + 5, 300);
+
+    }// end of function
+
+    function saveTeam() {
+        var selectedPlayersDef = document.getElementsByClassName("col-md sDef");
+        var selectedPlayersMid = document.getElementsByClassName("col-md sMid");
+        var selectedPlayersRuck = document.getElementsByClassName("col-md sRuck");
+        var selectedPlayersFwd = document.getElementsByClassName("col-md sFwd");
+
+        var defTeam = [];
+        var midTeam = [];
+        var ruckTeam = [];
+        var fwdTeam = [];
+
+         var teamSelection = {
+            StudentId: "@student",
+
+        };
+
+        if (selectedPlayersDef != null && selectedPlayersDef.length > 0) {
+            for (var i = 0; i < selectedPlayersDef.length; i++) {
+                var newUser = "DEF" + (i + 1);
+                var playerId = 0;
+                if (selectedPlayersDef[i].getElementsByClassName("removable") != null && selectedPlayersDef[i].getElementsByClassName("removable").length > 0) {
+                    playerId = selectedPlayersDef[i].getElementsByClassName("removable")[0].id
+
+                }
+                teamSelection[newUser] = playerId;
+            }
+        }
+        if (selectedPlayersMid != null && selectedPlayersMid.length > 0) {
+            for (var i = 0; i < selectedPlayersMid.length; i++) {
+                var newUser = "MID" + (i + 1);
+                var playerId = 0;
+                if (selectedPlayersMid[i].getElementsByClassName("removable") != null && selectedPlayersMid[i].getElementsByClassName("removable").length > 0) {
+                    playerId = selectedPlayersMid[i].getElementsByClassName("removable")[0].id
+                }
+                teamSelection[newUser] = playerId;
+            }
+        }
+        if (selectedPlayersRuck != null && selectedPlayersRuck.length > 0) {
+            for (var i = 0; i < selectedPlayersRuck.length; i++) {
+                var newUser = "RUCK" + (i + 1);
+                var playerId = 0;
+                if (selectedPlayersRuck[i].getElementsByClassName("removable") != null && selectedPlayersRuck[i].getElementsByClassName("removable").length > 0) {
+                    playerId = selectedPlayersRuck[i].getElementsByClassName("removable")[0].id
+                }
+                teamSelection[newUser] = playerId;
+            }
+        }
+        if (selectedPlayersFwd != null && selectedPlayersFwd.length > 0) {
+            for (var i = 0; i < selectedPlayersFwd.length; i++) {
+                var newUser = "FWD" + (i + 1);
+                var playerId = 0;
+                if (selectedPlayersFwd[i].getElementsByClassName("removable") != null && selectedPlayersFwd[i].getElementsByClassName("removable").length > 0) {
+                    playerId = selectedPlayersFwd[i].getElementsByClassName("removable")[0].id
+                }
+                teamSelection[newUser] = playerId;
+            }
+        }
+
+        //console.log(teamSelection);
+
+        $.post({
+            url: '../Home/SubmitTeam',
+            data: teamSelection,
+            traditional: true
+        }).done(function (data) {
+            alert(data.success);
+        }).fail(function (jqXhr, textStatus, errorThrown) {
+            alert("error");
+        });
+
+
+    }
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    // passes element id to drag movement
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+        posMovingPlayer = ev.target.parentNode.id;
+        //console.log(ev.target.id);
+    }
+
+    // drops into a new div element.
+    function drop(ev, position) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var object = document.getElementById(data);
+        var target = ev.target;
+
+        //console.log("ID " + target.id);
+
+        if (posMovingPlayer != null && posMovingPlayer != "") {
+            //console.log("ID " + target.id);
+
+            while (target.id != "stopHere") {
+                //console.log(target.id);
+                target = target.parentNode;
+            }
+
+            //console.log("Class Name: " + target.className);
+            //console.log("Data: " + data);
+            //console.log("Position: " + position);
+            //console.log("ID " + target.id);
+
+            if (target.getElementsByClassName("removable").length == 0) {
+                if ((posMovingPlayer == "DEF" && position == "DEF") || (posMovingPlayer == "FWD" && position == "FWD") || (posMovingPlayer == "MID" && position == "MID") || (posMovingPlayer == "RUCK" && position == "RUCK")) {
+                    target.getElementsByClassName("poster")[0].style.display = "none";
+                    target.appendChild(object);
+
+                    element = "Stats " + data;
+                    document.getElementById(element).style.display = "";
+                }
+            }
+        }
+        updatePos();
+        updateCheckpoint()
+    }
+
+    function pdfTeam() {
+
+        var doc = new jsPDF('l', 'pt', [1000, 800]);
+        var headers = ["Player", "Price", "Goals", "Behinds", "Matches", "Kicks", "Handballs", "Disposals", "Marks", "Hit - outs", "Clearances", "Cntr - Clearances", "Tackles"];
+        var player = [];
+
+        var source = $('#pdfPlayers').clone();
+        var finalSource = source.clone();
+        finalSource = finalSource[0];
+        var table = finalSource.getElementsByClassName("table table-bordered")[0];
+
+        for (var i = 1; i < table.rows.length; i++) {
+
+            if (table.rows[i].style.display == null || table.rows[i].style.display == "") {
+                var body = [];
+                body.push(table.rows[i].getElementsByClassName("name")[0].innerHTML);
+                body.push("$" + table.rows[i].getElementsByClassName("price")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("goalsTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("behindsTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("matches")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("kickTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("handballTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("disposalTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("marksTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("HOTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("clearanceTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("centreClearanceTotal")[0].innerHTML);
+                body.push(table.rows[i].getElementsByClassName("tackleTotal")[0].innerHTML);
+                player.push(body);
+            }
+        }
+
+
+        console.log(player);
+
+        doc.autoTable({
+            head: [headers],
+            body: player
+        }
+        )
+        doc.save('team.pdf')
+    }
+
+
+    // Removes from field
+    function remove(element, ev, position) {
+        // element.ondrop = "drop(event, '" + position+ "')";
+        // element.ondragover = "allowDrop(event)";
+
+        //console.log(element);
+
+        var child = element.getElementsByClassName("removable")[0];
+        //console.log(child);
+        var id = child.id;
+        //console.log(id);
+
+        var elementID = "Stats " + id;
+        document.getElementById(elementID).style.display = "none";
+
+        var test = element.getElementsByClassName("poster")[0];
+        //console.log(test);
+
+        test.style.display = "";
+
+        if (position == 'DEF') {
+            document.getElementById("DEF").append(child);
+        } else if (position == 'MID') {
+            document.getElementById("MID").append(child);
+        } else if (position == 'RUCK') {
+            document.getElementById("RUCK").append(child);
+        } else if (position == 'FWD') {
+            document.getElementById("FWD").append(child);
+        }
+        updatePos();
+        updateCheckpoint();
+    }
+
+    // update checkpoint count
+    function updateCount() {
+        var menCell = document.getElementById("malesCount");
+        menCell.innerHTML = menCount;
+        if (menCount > 9) {
+            menCell.style.backgroundColor = "red";
+            menCell.style.color = "white";
+        } else {
+            menCell.style.backgroundColor = "white";
+            menCell.style.color = "black";
+        }
+        var womenCell = document.getElementById("femalesCount");
+        womenCell.innerHTML = womenCount;
+        if (womenCount > 9) {
+            womenCell.style.backgroundColor = "red";
+            womenCell.style.color = "white";
+        } else {
+            womenCell.style.backgroundColor = "white";
+            womenCell.style.color = "black";
+        }
+        var costCell = document.getElementById("priceCount");
+        costCell.innerHTML = "$" + teamCost;
+        if (teamCost > 8000000) {
+            costCell.style.backgroundColor = "red";
+            costCell.style.color = "white";
+        } else {
+            costCell.style.backgroundColor = "white";
+            costCell.style.color = "black";
+        }
+    }
+
+    function updateCheckpoint() {
+        menCount = 0;
+        womenCount = 0;
+        teamCost = 0;
+        var table = document.getElementById("selectedTable");
+        for (var i = 0, row; row = table.rows[i]; i++) {
+            //console.log("Row" + row);
+            //console.log("Row" + row.style.display);
+            //iterate through rows
+            //rows would be accessed using the "row" variable assigned in the for loop
+            if (row.style.display == "") {
+                var price = row.getElementsByClassName("price")[0].innerHTML;
+                price = parseInt(price, 10)
+                //console.log("Price" + price);
+                var gender = row.getElementsByClassName("gender")[0].innerHTML;
+                //console.log("Gender " + gender);
+                if (gender == "M") {
+                    menCount += 1;
+                } else {
+                    womenCount += 1;
+                }
+                teamCost += price;
+            }
+        }
+        updateCount();
+    }
+
+    function playerPos(evt, position) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(position).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+</script>
+
+

@@ -1,0 +1,224 @@
+﻿
+@{
+    ViewBag.title = "Survey";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .tabcontent {
+        height: 3100px;
+        display: none;
+    }
+
+    #textPara {
+        margin-top: 20px;
+        font-size: 20px;   
+        width: 100%;
+    }
+
+    .form-check {
+        margin-top: 20px;
+        font-family: 'Titillium Web', sans-serif;
+    }
+
+    #selSchool {
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    #s1 {
+        background-color: #33619e;
+        font-family: 'Titillium Web', sans-serif;
+        color: white;
+        padding: 5px;
+        border: 1px solid black;
+        width: 100%;
+        cursor: pointer;
+        margin-top: 60px;
+        border-radius: 5px;
+    }
+
+    option:hover{
+        cursor: pointer;
+    }
+
+    #wholeRow {
+        position: sticky;
+        top: 20px;
+        width: 100%;
+    }
+
+    input[type=radio]{
+        opacity: 0;
+        width: 0;
+        height: 0;
+        
+    }
+
+    label {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 40px;
+        width: 100%;
+        border: 2px solid #e31937;
+        padding: 5px;
+        padding-bottom: 10px;
+        font-size: 20px;
+        border-radius: 5px;
+        background-color: white;
+        cursor: pointer;
+        color: black;
+        text-align: center;
+    }
+
+        label:hover {
+            background-color: #ffd200;
+            cursor: pointer;
+            color: black;
+        }
+
+    input[type=radio]:checked + label {
+        background-color: #ffd200;
+        color: black;
+    }
+
+</style>
+
+<h1 style="font-family: 'Titillium Web', sans-serif;">Survey</h1>
+
+
+<div class="row" >
+    <div class="col-md-3">
+        <div id="wholeRow">
+            <div id="textPara">
+                <p style=" font-family: 'Titillium Web', sans-serif;">Please select ...</p>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="Pre" name="Survey" value="pre" onclick="cSurvey(event), choseSurvey()" checked />
+                <label class="form-check-label" for="Pre">Pre Survey</label><br />
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="Post" name="Survey" value="post" onclick="cSurvey(event), choseSurvey()" />
+                <label class="form-check-label" for="Post">Post Survey</label>
+            </div>
+
+            <div id="selSchool">
+                <select id="s1" name="Schools" onchange="choseSurvey()">
+                    <option value="" disabled selected>Please select your school</option>
+                    <option value="Ridgehaven" id="Ridgehaven" onclick="choseSurvey()">Ridgehaven</option>
+                    <option value="SheidowPark" id="SheidowPark" onclick="choseSurvey()">Sheidow Park</option>
+                    <option value="Gumeracha" id="Gumeracha" onclick="choseSurvey()">Gumeracha</option>
+                    <option value="SurreyDowns" id="SurreyDowns" onclick="choseSurvey()">Surrey Downs</option>
+                    <option value="ParaHills" id="ParaHills" onclick="choseSurvey()">Para Hills</option>
+                </select>
+            </div>
+            </div>
+        </div>
+
+    <div id="preRidgehaven" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfCUKY_05V3gDyQwSHF_9IaOceQP--5kcvmjw8VxMBK3-mfKA/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="postRidgehaven" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSftpwWSIPMgJqpyvHkvdfFoSAaCEbFBVRZpKkQWxQrj1klUig/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="preSheidowPark" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdLNrdRWzYNtr54N6kQ40VqezK4CEagbwQLnB-DERIkptwMJA/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="postSheidowPark" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScMrcFm6Dx9DRaYtG6GuGmeXjimFCB4fN8G5Z9eJw9ivUReZA/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="preGumeracha" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeyUgSHDiwqcoYgGGqUrCzWermD63p4y0738_MQe3odq1AGZQ/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="postGumeracha" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdIQA0zjGRSI16dlfp833nLDmQxlkU9DvjHz541EPiEtOp6Ug/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="preSurreyDowns" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScfuBW33ysSMQr6ElIQvzxla1SOGhv5unMXch9Wuugs40jHXg/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="postSurreyDowns" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfR_TA-JTGGuwM3kftG4KKrJ8nd18CbpseShB-b1Cbpn5AJZg/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="preParaHills" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqEDmA7HYSVmDGgJob2LK47Nwb8NgwkiSMi99OIeX-Y7fdlw/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="postParaHills" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScarSRqMLikZalOwpAaDZOR76UELlsvsEHRjarXL98f_skOHA/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+</div>
+
+
+
+<script>
+    var prePost = 'pre';
+    
+    function choseSurvey() {
+        var school = document.getElementById("s1").value;
+        var i, tabcontent;
+        var survey = prePost + school
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        document.getElementById(survey).style.display = "block";
+        document.getElementById("s1").className += " active";
+    }
+
+    function cSurvey(evt) {
+        var school = document.getElementById("s1").value;
+        prePost = evt.currentTarget.value;
+        document.getElementById(school).click();
+                
+    }
+</script>
+

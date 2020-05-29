@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AFCSTEM.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style type="text/css">
+    .text-center {
+        position: relative;
+    }
+
+        /* Make the image responsive */
+        .text-center img {
+            width: 100%;
+            height: auto;
+        }
+
+        /* Style the button and place it in the middle of the container/image */
+        .text-center .btn {
+            position: absolute;
+            top: 78%;
+            left: 73%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            background-color: #e31937;
+            color: white;
+            font-size: 16px;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Titillium Web', sans-serif;
+        }
+        /* Style the button and place it in the middle of the container/image */
+        .text-center .btn2 {
+            position: absolute;
+            top: 78%;
+            left: 85%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            background-color: #e31937;
+            color: white;
+            font-size: 16px;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Titillium Web', sans-serif;
+        }
+        /* Style the button and place it in the middle of the container/image */
+        .text-center .btn1 {
+            position: absolute;
+            top: 78%;
+            left: 80%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            background-color: #e31937;
+            color: white;
+            font-size: 16px;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-family: 'Titillium Web', sans-serif;
+        }
+
+        .text-center .btn:hover {
+            background-color: black;
+        }
+</style>
+<div class="text-center">
+    <img src="~/Images/Home-page.jpg" />
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <a class="btn1" asp-area="" asp-controller="Home" asp-action="Crowball">Go To Crowball</a>
+
+    }
+    else
+    {
+        <a class="btn" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="btn2" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    }
+</div>
