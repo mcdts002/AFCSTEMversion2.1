@@ -1560,20 +1560,23 @@
         graph.clearRect(0, 0, 700, 400);
 
 
+        graph.font = "12px sans-serif";
+
+
         //graph lines
         graph.fillStyle = "black";
         graph.fillRect(0, 0, 1, 380);
         graph.fillRect(0, 380, 1000, 2);
         graph.fillRect(50, 377, 2, 5);
         graph.fillRect(100, 377, 2, 10);
-        graph.strokeText("10", 95, 395);
+        graph.fillText("10", 95, 397);
         graph.fillRect(150, 377, 2, 5);
         graph.fillRect(200, 377, 2, 10);
-        graph.strokeText("20", 195, 395);
+        graph.fillText("20", 195, 397);
         graph.fillRect(250, 377, 2, 5);
         graph.fillRect(300, 377, 2, 10);
-        graph.strokeText("30", 295, 395);
-        graph.strokeText("-- Total -- ", 360, 395);
+        graph.fillText("30", 295, 397);
+        graph.fillText(" Total  ", 350, 397);
 
 
 
@@ -1581,74 +1584,88 @@
 
 
 
-        graph.strokeText("Kicks: ", 260, 20);
-        graph.strokeText("Handballs: ", 360, 20);
-        graph.strokeText("Disposals: ", 460, 20);
-        graph.strokeText("Defenders", 600, 50);
-        graph.strokeText("Midfielders/Rucks: ", 600, 130);
-        graph.strokeText("Forwards", 600, 210);
-        graph.strokeText("Team", 600, 290);
+
+        graph.fillText("Kicks: ", 260, 20);
+        graph.fillText("Handballs: ", 360, 20);
+        graph.fillText("Disposals: ", 460, 20);
+        graph.fillText("Defenders", 600, 50);
+        graph.fillText("Midfielders/Rucks ", 600, 130);
+        graph.fillText("Forwards", 600, 210);
+        graph.fillText("Team", 600, 290);
 
 
         //defenders
-        graph.fillStyle = "red";
+        graph.fillStyle = "#e31937";
         graph.fillRect(300, 10, 10, 10);
         graph.fillRect(0, 10, 10 * (defKicks / defMatches), 20);
-        graph.strokeText(parseInt(defKicks / defMatches), 10 * (defKicks / defMatches) + 5, 20)
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(defKicks / defMatches), 10 * (defKicks / defMatches) + 5, 22)
 
 
-        graph.fillStyle = "yellow";
+        graph.fillStyle = "#ffd200";
         graph.fillRect(420, 10, 10, 10);
         graph.fillRect(0, 30, 10 * (defHandballs / defMatches), 20);
-        graph.strokeText(parseInt(defHandballs / defMatches), 10 * (defHandballs / defMatches) + 5, 40)
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(defHandballs / defMatches), 10 * (defHandballs / defMatches) + 5, 42)
 
 
-        graph.fillStyle = "blue";
+        graph.fillStyle = "#33619e";
         graph.fillRect(520, 10, 10, 10);
         graph.fillRect(0, 50, 10 * (defDisposals / defMatches), 20);
-        graph.strokeText(parseInt(defDisposals / defMatches), 10 * (defDisposals / defMatches) + 5, 60)
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(defDisposals / defMatches), 10 * (defDisposals / defMatches) + 5, 62)
 
 
         //midfields/ruck
-        graph.fillStyle = "red";
+        graph.fillStyle = "#e31937";
         graph.fillRect(0, 90, 10 * (midKicks / midMatches), 20);
-        graph.strokeText(parseInt(midKicks / midMatches), 10 * (midKicks / midMatches) + 5, 100)
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(midKicks / midMatches), 10 * (midKicks / midMatches) + 5, 102)
 
-        graph.fillStyle = "yellow";
+        graph.fillStyle = "#ffd200";
         graph.fillRect(0, 110, 10 * (midHandballs / midMatches), 20);
-        graph.strokeText(parseInt(midHandballs / midMatches), 10 * (midHandballs / midMatches) + 5, 120);
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(midHandballs / midMatches), 10 * (midHandballs / midMatches) + 5, 122);
 
-        graph.fillStyle = "blue";
+        graph.fillStyle = "#33619e";
         graph.fillRect(0, 130, 10 * (midDisposals / midMatches), 20);
-        graph.strokeText(parseInt(midDisposals / midMatches), 10 * (midDisposals / midMatches) + 5, 140);
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(midDisposals / midMatches), 10 * (midDisposals / midMatches) + 5, 142);
 
 
         //forwards
-        graph.fillStyle = "red";
+        graph.fillStyle = "#e31937";
         graph.fillRect(0, 170, 10 * (fwdKicks / fwdMatches), 20);
-        graph.strokeText(parseInt(fwdKicks / fwdMatches), 10 * (fwdKicks / fwdMatches) + 5, 180);
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(fwdKicks / fwdMatches), 10 * (fwdKicks / fwdMatches) + 5, 182);
 
-        graph.fillStyle = "yellow";
+        graph.fillStyle = "#ffd200";
         graph.fillRect(0, 190, 10 * (fwdHandballs / fwdMatches), 20);
-        graph.strokeText(parseInt(fwdHandballs / fwdMatches), 10 * (fwdHandballs / fwdMatches) + 5, 200);
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(fwdHandballs / fwdMatches), 10 * (fwdHandballs / fwdMatches) + 5, 202);
 
-        graph.fillStyle = "blue";
+        graph.fillStyle = "#33619e";
         graph.fillRect(0, 210, 10 * (fwdDisposals / fwdMatches), 20);
-        graph.strokeText(parseInt(fwdDisposals / fwdMatches), 10 * (fwdDisposals / fwdMatches) + 5, 220);
+        graph.fillStyle = "black";
+        graph.fillText(parseInt(fwdDisposals / fwdMatches), 10 * (fwdDisposals / fwdMatches) + 5, 222);
 
         //total
 
-        graph.fillStyle = "red";
+        graph.fillStyle = "#e31937";
         graph.fillRect(0, 250, 10 * ((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)), 20);
-        graph.strokeText(parseInt((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)), 10 * ((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)) + 5, 260);
+        graph.fillStyle = "black";
+        graph.fillText(parseInt((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)), 10 * ((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)) + 5, 262);
 
-        graph.fillStyle = "yellow";
+        graph.fillStyle = "#ffd200";
         graph.fillRect(0, 270, 10 * ((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)), 20);
-        graph.strokeText(parseInt((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)), 10 * ((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)) + 5, 280);
+        graph.fillStyle = "black";
+        graph.fillText(parseInt((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)), 10 * ((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)) + 5, 282);
 
-        graph.fillStyle = "blue";
+        graph.fillStyle = "#33619e";
         graph.fillRect(0, 290, 10 * ((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)), 20);
-        graph.strokeText(parseInt((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)), 10 * ((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)) + 5, 300);
+        graph.fillStyle = "black";
+        graph.fillText(parseInt((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)), 10 * ((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)) + 5, 302);
+
 
     }// end of function
 
@@ -1812,6 +1829,13 @@
             body: player
         }
         )
+
+        var canvas = document.getElementById("canvas");
+        updatePos();
+        var imgData = canvas.toDataURL('image/png');
+        doc.addImage(imgData, 'PNG', 200, 500);
+
+
         doc.save('team.pdf')
     }
 
