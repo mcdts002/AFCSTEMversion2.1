@@ -166,10 +166,11 @@
     }
 }
 <style>
+    /*options tables*/
     #table1 {
         width: 100%;
     }
-
+    /*players table*/
     #table2 {
         margin-top: 20px;
         width: 100%;
@@ -178,11 +179,11 @@
     h1 {
         text-align: center
     }
-
-    #test {
+    /*Numbers*/
+    #numOptions {
         text-align: center;
     }
-
+    /*button*/
     #btn {
         background-color: white;
         color: #002b5c;
@@ -195,17 +196,14 @@
             color: white;
         }
 </style>
-<!--
-th,td{
-    border: 1px solid black;
-    border-collapse:collapse;
-}
--->
+
 <h1 style="font-family: 'Titillium Web', sans-serif;">Crowball MVP</h1>
 
 <div class="container" style="font-family: 'Titillium Web', sans-serif;">
     <div class="row">
+        <!--column to contain options table-->
         <div class="col-md-4">
+            <!--options table-->
             <table id="table1" class="" style="font-family: 'Titillium Web', sans-serif;">
                 <tr><th colspan="2" style="text-align:center;font-family: 'Titillium Web', sans-serif;background-color: #002b5c;color:white;">Set your allocations here</th></tr>
                 <tr>
@@ -214,56 +212,56 @@ th,td{
                 </tr>
                 <tr>
                     <td>Goals</td>
-                    <td id="test">
+                    <td id="numOptions">
                         <select onchange="checkOptions()" id="Allocations1" name="Allocations">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Behinds</td>
-                    <td id="test">
+                    <td id="numOptions">
                         <select onchange="checkOptions()" id="Allocations2" name="Allocations">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Kicks</td>
-                    <td id="test">
+                    <td id="numOptions">
                         <select onchange="checkOptions()" id="Allocations3" name="Allocations">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Handballs</td>
-                    <td id="test">
+                    <td id="numOptions">
                         <select onchange="checkOptions()" id="Allocations4" name="Allocations">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Marks</td>
-                    <td id="test">
+                    <td id="numOptions">
                         <select onchange="checkOptions()" id="Allocations5" name="Allocations">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Hit-outs</td>
-                    <td id="test">
+                    <td id="numOptions">
                         <select onchange="checkOptions()" id="Allocations6" name="Allocations">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Clearances</td>
-                    <td id="test">
+                    <td id="numOptions">
                         <select onchange="checkOptions()" id="Allocations7" name="Allocations">
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td>Tackles</td>
-                    <td id="test">
+                    <td id="numOptions">
                         <select onchange="checkOptions()" id="Allocations8" name="Allocations">
                         </select>
                     </td>
@@ -273,6 +271,7 @@ th,td{
                 </tr>
             </table>
         </div>
+        <!--column to show the totals-->
         <div class="col-md-8">
             <table id="table1" class="" style="font-family: 'Titillium Web', sans-serif;font-size:48px;top: 50%;-ms-transform: translateY(25%);transform: translateY(25%);">
                 <tr style="background-color:#e31937;color:white">
@@ -292,6 +291,7 @@ th,td{
 
         </div>
     </div>
+    <!--This sections contains the players table-->
     <div class="row">
         <div class="col-md-12" style="font-size:13px; font-family: 'Titillium Web', sans-serif;overflow-x:auto; overflow-y:auto;">
             <table id="table2" class="table">
@@ -347,6 +347,7 @@ th,td{
 
 <script>
     addOptions();
+    // Method to calculate the player's points based the point system
     function mvpFunc() {
         var table = document.getElementById('selectedTable');
         //goals
@@ -411,6 +412,7 @@ th,td{
         document.getElementById("teamAvg").innerHTML = (teamTotal / selectedPlayers.length).toFixed(1);
 
     }
+    // Method to check if two rows have the same option chosen. i.e multiple '2' is selected, highlights the option red.
     function checkOptions() {
         document.getElementById("Allocations1").style.backgroundColor = "white";
         document.getElementById("Allocations2").style.backgroundColor = "white";
@@ -432,10 +434,9 @@ th,td{
                 }
 
             }
-
-
         }
     }
+    // Method to populate the options table with 1-7
     function addOptions() {
         var s1 = document.getElementsByTagName("select");
         for (i = 1; i < s1.length + 1; i++) {
@@ -455,6 +456,7 @@ th,td{
         document.getElementById("Allocations7").selectedIndex = 6;
         document.getElementById("Allocations8").selectedIndex = 7;
     }
+    // Method sorts the table, top row is player with highest points
     function sortTable() {
         var table, rows, switching, i, x, y, shouldSwitch;
         table = document.getElementById("table2");

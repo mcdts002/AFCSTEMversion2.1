@@ -5,36 +5,41 @@
 }
 
 <style>
+    /*heading*/
     h1 {
         text-align: center;
+        font-family: Titillium Web, sans-serif;
+        color: #004b8d;
     }
-
+    /*Styling the Embedded element*/
     iframe {
         width: 100%;
         height: 100%;
     }
-
+    /*the div element holding each survey*/
     .tabcontent {
         height: 3100px;
         display: none;
     }
-
+    /* side bar text*/
     #textPara {
         margin-top: 20px;
-        font-size: 20px;   
+        font-size: 20px;
         width: 100%;
+        font-family: 'Titillium Web', sans-serif;
+        color: #002b5c;
     }
-
+    /*Container for the buttons*/
     .form-check {
         margin-top: 20px;
         font-family: 'Titillium Web', sans-serif;
     }
-
+    /*drop down menu to chose the school*/
     #selSchool {
         margin-top: 20px;
         width: 100%;
     }
-
+    /*select element for drop down menu*/
     #s1 {
         background-color: #33619e;
         font-family: 'Titillium Web', sans-serif;
@@ -46,31 +51,27 @@
         margin-top: 60px;
         border-radius: 5px;
     }
-
-    option:hover{
-        cursor: pointer;
-    }
-
+    /*the side select options container*/
     #wholeRow {
         position: sticky;
         top: 20px;
         width: 100%;
     }
-
+    /*Hide the default radio buttons*/
     input[type=radio]{
         opacity: 0;
         width: 0;
         height: 0;
         
     }
-
+    /*Style the buttons to choose pre/post surveys */
     label {
         position: absolute;
         left: 0;
         top: 0;
         height: 40px;
         width: 100%;
-        border: 2px solid #e31937;
+        border: 2px solid #33619e;
         padding: 5px;
         padding-bottom: 10px;
         font-size: 20px;
@@ -80,30 +81,29 @@
         color: black;
         text-align: center;
     }
-
+    /* when mouse is hoved on label*/
         label:hover {
-            background-color: #ffd200;
+            background-color: #33619e;
             cursor: pointer;
-            color: black;
+            color: white;
         }
-
+    /*When label is clickes*/
     input[type=radio]:checked + label {
-        background-color: #ffd200;
-        color: black;
+        background-color: #33619e;
+        color: white;
     }
 
 </style>
 
-<h1 style="font-family: 'Titillium Web', sans-serif;">Survey</h1>
+<h1>Survey</h1>
 
-
-<div class="row" >
+<div class="row">
     <div class="col-md-3">
         <div id="wholeRow">
             <div id="textPara">
-                <p style=" font-family: 'Titillium Web', sans-serif;">Please select ...</p>
+                <p>Please select ...</p>
             </div>
-
+            <!--Radio Buttons, styled into labels-->
             <div class="form-check">
                 <input class="form-check-input" type="radio" id="Pre" name="Survey" value="pre" onclick="cSurvey(event), choseSurvey()" checked />
                 <label class="form-check-label" for="Pre">Pre Survey</label><br />
@@ -112,7 +112,7 @@
                 <input class="form-check-input" type="radio" id="Post" name="Survey" value="post" onclick="cSurvey(event), choseSurvey()" />
                 <label class="form-check-label" for="Post">Post Survey</label>
             </div>
-
+            <!--Drop down menu for students to choose their school-->
             <div id="selSchool">
                 <select id="s1" name="Schools" onchange="choseSurvey()">
                     <option value="" disabled selected>Please select your school</option>
@@ -123,9 +123,10 @@
                     <option value="ParaHills" id="ParaHills" onclick="choseSurvey()">Para Hills</option>
                 </select>
             </div>
-            </div>
         </div>
-
+    </div>
+    <!--Each div element contains the embed code for the pre or post surveys -->
+    <!--Ridgehaven-->
     <div id="preRidgehaven" class="tabcontent col-md-9">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfCUKY_05V3gDyQwSHF_9IaOceQP--5kcvmjw8VxMBK3-mfKA/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
@@ -140,6 +141,7 @@
         </iframe>
     </div>
 
+    <!--Sheidow Park-->
     <div id="preSheidowPark" class="tabcontent col-md-9">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdLNrdRWzYNtr54N6kQ40VqezK4CEagbwQLnB-DERIkptwMJA/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
@@ -154,6 +156,7 @@
         </iframe>
     </div>
 
+    <!--Gumeracha-->
     <div id="preGumeracha" class="tabcontent col-md-9">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeyUgSHDiwqcoYgGGqUrCzWermD63p4y0738_MQe3odq1AGZQ/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
@@ -168,6 +171,7 @@
         </iframe>
     </div>
 
+    <!--Surrey Downs-->
     <div id="preSurreyDowns" class="tabcontent col-md-9">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScfuBW33ysSMQr6ElIQvzxla1SOGhv5unMXch9Wuugs40jHXg/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
@@ -182,6 +186,7 @@
         </iframe>
     </div>
 
+    <!--Para Hills-->
     <div id="preParaHills" class="tabcontent col-md-9">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqEDmA7HYSVmDGgJob2LK47Nwb8NgwkiSMi99OIeX-Y7fdlw/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
@@ -200,8 +205,9 @@
 
 
 <script>
-    var prePost = 'pre';
-    
+    var prePost = 'pre'; // varible to stored current radio button choice
+
+    // Method to chose which embedded survey to display. Gets currently chosen radio button and selected school
     function choseSurvey() {
         var school = document.getElementById("s1").value;
         var i, tabcontent;
@@ -213,7 +219,8 @@
         document.getElementById(survey).style.display = "block";
         document.getElementById("s1").className += " active";
     }
-
+    // Method to set value of the currently clicked radio button. 
+    // When called, choseSurvey is called through inline 'onclick' to display the school's survey
     function cSurvey(evt) {
         var school = document.getElementById("s1").value;
         prePost = evt.currentTarget.value;
