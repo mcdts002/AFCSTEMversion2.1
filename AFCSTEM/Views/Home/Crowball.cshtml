@@ -1822,6 +1822,8 @@
         console.log(player);
 
         doc.autoTable({
+            headStyles: { fillColor: [0, 75, 141] },
+            columnStyles: { 0: { fillColor: [51, 97, 158], textColor: [255, 255, 255]} }, 
             head: [headers],
             body: player
         }
