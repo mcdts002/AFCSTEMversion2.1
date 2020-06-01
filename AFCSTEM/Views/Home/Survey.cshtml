@@ -10,6 +10,7 @@
         text-align: center;
         font-family: Titillium Web, sans-serif;
         color: #004b8d;
+        margin-top: 100px;
     }
     /*Styling the Embedded element*/
     iframe {
@@ -18,8 +19,9 @@
     }
     /*the div element holding each survey*/
     .tabcontent {
-        height: 3100px;
+        height: 5600px;
         display: none;
+        margin-bottom: 20px;
     }
     /* side bar text*/
     #textPara {
@@ -53,9 +55,8 @@
     }
     /*the side select options container*/
     #wholeRow {
-        position: sticky;
         top: 20px;
-        width: 100%;
+        width: 100%; 
     }
     /*Hide the default radio buttons*/
     input[type=radio]{
@@ -92,7 +93,6 @@
         background-color: #33619e;
         color: white;
     }
-
 </style>
 
 <h1>Survey</h1>
@@ -116,89 +116,142 @@
             <div id="selSchool">
                 <select id="s1" name="Schools" onchange="choseSurvey()">
                     <option value="" disabled selected>Please select your school</option>
-                    <option value="Ridgehaven" id="Ridgehaven" onclick="choseSurvey()">Ridgehaven</option>
-                    <option value="SheidowPark" id="SheidowPark" onclick="choseSurvey()">Sheidow Park</option>
-                    <option value="Gumeracha" id="Gumeracha" onclick="choseSurvey()">Gumeracha</option>
-                    <option value="SurreyDowns" id="SurreyDowns" onclick="choseSurvey()">Surrey Downs</option>
-                    <option value="ParaHills" id="ParaHills" onclick="choseSurvey()">Para Hills</option>
+                    <option value="BrightonPS" id="BrightonPS" onclick="choseSurvey()">Brighton PS</option>
+                    <option value="KingsBaptist" id="KingsBaptist" onclick="choseSurvey()">Kings Baptist</option>
+                    <option value="JPSSSAASTA" id="JPSSSAASTA" onclick="choseSurvey()">JPSS SAASTA</option>
+                    <option value="OVCSAASTA" id="OVCSAASTA" onclick="choseSurvey()">OVC SAASTA</option>
+                    <option value="WhyallaSAASTA" id="WhyallaSAASTA" onclick="choseSurvey()">Whyalla SAASTA</option>
+                    <option value="CedunaSAASTA" id="CedunaSAASTA" onclick="choseSurvey()">Ceduna SAASTA</option>
+                    <option value="MurrayBridgeSAASTA" id="MurrayBridgeSAASTA" onclick="choseSurvey()">Murray Bridge SAASTA</option>
+                    <option value="MOCSAASTA" id="MOCSAASTA" onclick="choseSurvey()">MOC SAASTA</option>
+                    <option value="PlayfordSAASTA" id="PlayfordSAASTA" onclick="choseSurvey()">Playford SAASTA</option>
+                    <option value="LoretoCollege" id="LoretoCollege" onclick="choseSurvey()">Loreto College</option>
+                    <option value="StPaulsCollege" id="StPaulsCollege" onclick="choseSurvey()">St Pauls College</option>
+
                 </select>
             </div>
         </div>
     </div>
     <!--Each div element contains the embed code for the pre or post surveys -->
-    <!--Ridgehaven-->
-    <div id="preRidgehaven" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfCUKY_05V3gDyQwSHF_9IaOceQP--5kcvmjw8VxMBK3-mfKA/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <!--Brighton PS-->
+    <div id="preBrightonPS" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScJgzwO1kWZ-1OZPnYxQXfxsdSc8Z7yqdrWgpQcXB8KOgbPYg/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <div id="postRidgehaven" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSftpwWSIPMgJqpyvHkvdfFoSAaCEbFBVRZpKkQWxQrj1klUig/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <div id="postBrightonPS" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZqZHLWYmsyX11ELEpthB-SxRNyNQtgFVwjpMJ4qLw6M0iaw/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <!--Sheidow Park-->
-    <div id="preSheidowPark" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdLNrdRWzYNtr54N6kQ40VqezK4CEagbwQLnB-DERIkptwMJA/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <!--Kings Baptist-->
+    <div id="preKingsBaptist" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdFg1E_VZ-1x_uz4NvFFeMeF8eK2bxMj1ItVzG9OqUviJT0Aw/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <div id="postSheidowPark" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScMrcFm6Dx9DRaYtG6GuGmeXjimFCB4fN8G5Z9eJw9ivUReZA/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <div id="postKingsBaptist" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdm_Fzty_57ZzZk8BvGf7vKkdfU9Z3puDh9W6HF_69VfejI5w/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <!--Gumeracha-->
-    <div id="preGumeracha" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeyUgSHDiwqcoYgGGqUrCzWermD63p4y0738_MQe3odq1AGZQ/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <!--JPSS SAASTA-->
+    <div id="preJPSSSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScTNn0xBCvWT6vIzpib-xFj_EKE7Z6Q3gdCpcagfHDsEQIaOA/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <div id="postGumeracha" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdIQA0zjGRSI16dlfp833nLDmQxlkU9DvjHz541EPiEtOp6Ug/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <div id="postJPSSSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfh6y5ax4kbh1Cj6peo2aVeDsJeTiBcTnVBESCQ9kmqxy4QPg/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <!--Surrey Downs-->
-    <div id="preSurreyDowns" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScfuBW33ysSMQr6ElIQvzxla1SOGhv5unMXch9Wuugs40jHXg/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <!--OVC SAASTA-->
+    <div id="preOVCSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScW0cKN-wdfN5hIiqzdmCbk2JB8erszkrhOIPuBLuLiCNiaLg/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <div id="postSurreyDowns" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfR_TA-JTGGuwM3kftG4KKrJ8nd18CbpseShB-b1Cbpn5AJZg/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <div id="postOVCSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSclIUo1JxlJvXs9-gd9CNvXAHvLowDBejtSHbfaSuBoTZ3hUw/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <!--Para Hills-->
-    <div id="preParaHills" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeqEDmA7HYSVmDGgJob2LK47Nwb8NgwkiSMi99OIeX-Y7fdlw/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <!--Whyalla SAASTA-->
+    <div id="preWhyallaSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfesMJ-W66axxe6d2Z7ArlInNclzcj8oeBdKdaCZTF17u-nkQ/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 
-    <div id="postParaHills" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScarSRqMLikZalOwpAaDZOR76UELlsvsEHRjarXL98f_skOHA/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">
-            Loading…
-        </iframe>
+    <div id="postWhyallaSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScBmzYDnoe67MFeqzpznxTXlMHdZj23cWouG6e4RycvNkNTzQ/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <!--Ceduna SAASTA-->
+    <div id="preCedunaSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd0qYaQTduXJLjMgyzItG6RIE8x-G1tRSlVCh1HfEaAOZgihw/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <div id="postCedunaSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSckoflUwMNVKvOAGlLwKODDQQcdt2suunBRfDUBiEs5qYjIfQ/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <!--MurrayBridge SAASTA-->
+    <div id="preMurrayBridgeSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe8yQJTWEg7FHZ-iRiA7cuYIX5r4w_NwAwka5YlM-PqFfl1Vw/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <div id="postMurrayBridgeSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScYKgyxyWyHdaacVumvQlZS957_T8cj4flfHOgWg-0VJSzJcQ/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <!--MOC SAASTA-->
+    <div id="preMOCSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfkpJgw2yBTj5Es0PE0JfmpWm5ANTsXnUQG3VyVvw7JOFqQDA/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <div id="postMOCSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdlBx2rTX5hOMHtDGZHRUJw_C6Ui4ZAsRxieF9a5Nv2qbShlg/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <!--Playford SAASTA-->
+    <div id="prePlayfordSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdRAbx9AS9u_01q-IhxYv0VHoSuBfVU9lPsCN5PQ6V_qhBm9Q/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <div id="postPlayfordSAASTA" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd8_NoJp-LV368U4xwdAKNrSXzLT7VN1A0g4cboJdYzRssn2g/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <!--LoretoCollege-->
+    <div id="preLoretoCollege" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScegW-1jMEbltW_FcMkRdKD7Bz4t8dSVJwJvIjUZ3bfdj0kqg/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <div id="postLoretoCollege" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeofc5dfETQ1kLm8pvrluHAI835qrWhkG96hQ2Gm7X_VTTWxg/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <!--StPaulsCollege-->
+    <div id="preStPaulsCollege" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScwHRjCpebGXtEgJ3j-LamsmnxChcq5G8NtanC-dsFJ8rHDOQ/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+
+    <div id="postStPaulsCollege" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScj9uYjDla_yXK0J3V2X0P4G5YWd9UCHE17bBg-oYr0k6JWvg/viewform?embedded=true" 
+                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
 </div>
 
@@ -206,6 +259,7 @@
 
 <script>
     var prePost = 'pre'; // varible to stored current radio button choice
+    stickyNavbar();
 
     // Method to chose which embedded survey to display. Gets currently chosen radio button and selected school
     function choseSurvey() {
@@ -226,6 +280,12 @@
         prePost = evt.currentTarget.value;
         document.getElementById(school).click();
                 
+    }
+    // Method to fix the navbar to the top on scroll. 
+    // Adds to nav tag class list
+    function stickyNavbar() {
+        var element = document.getElementsByTagName('nav');
+        element[0].classList.add('fixed-top');
     }
 </script>
 

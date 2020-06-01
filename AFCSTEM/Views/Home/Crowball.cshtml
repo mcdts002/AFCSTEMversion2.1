@@ -19,7 +19,7 @@
     }
 
     #teamList {
-        background-image: url('../images/AFLField.png');
+        background-image: url('../images/Football_Oval-01.jpg');
         background-size: 100% 100%;
     }
 
@@ -150,11 +150,9 @@
 <div class="container">
     <!--This section is for display of field and selectons-->
     <div class="row" id="topRow">
-
         <!--This section is the displaying of players on the field. There are 6 rows each with 3 columns-->
         <div id="teamList" class="col-md-9">
-
-            <!--Row 1-->
+            <!--Row 1 Defenders-->
             <div class="row fRow" style="margin-top:10px;">
                 <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
                     @if (team != null && team.DEF1 != 0)
@@ -298,7 +296,7 @@
                 </div>
             </div>
 
-            <!--Row 2-->
+            <!--Row 2 Defenders-->
             <div class="row fRow">
                 <div id="stopHere" class="col-md sDef" style="text-align:center;" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
                     @if (team != null && team.DEF2 != 0)
@@ -443,7 +441,7 @@
 
             </div>
 
-            <!--Row 3-->
+            <!--Row 3 Mids and Ruck-->
             <div class="row fRow">
                 <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
                     @if (team != null && team.DEF3 != 0)
@@ -587,7 +585,7 @@
                 </div>
             </div>
 
-            <!--Row 4-->
+            <!--Row 4 Mids and Ruck-->
             <div class="row fRow">
                 <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
                     @if (team != null && team.DEF4 != 0)
@@ -733,7 +731,7 @@
 
             </div>
 
-            <!--Row 5-->
+            <!--Row 5 Forwards-->
             <div class="row fRow">
                 <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
                     @if (team != null && team.DEF5 != 0)
@@ -877,7 +875,7 @@
                 </div>
             </div>
 
-            <!--Row 6-->
+            <!--Row 6 Forwards-->
             <div class="row fRow">
                 <div id="stopHere" class="col-md sDef" ondrop="drop(event, 'DEF')" ondragover="allowDrop(event)" onclick="remove(this, event, 'DEF')">
                     @if (team != null && team.DEF6 != 0)
