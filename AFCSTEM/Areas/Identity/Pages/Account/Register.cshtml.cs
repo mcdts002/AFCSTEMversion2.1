@@ -57,6 +57,11 @@ namespace AFCSTEM.Areas.Identity.Pages.Account
             [StringLength(75, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [Display(Name = "School")]
             public string School { get; set; }
+
+            [Required]
+            [StringLength(75, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Display(Name = "Token")]
+            public string Token { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -70,23 +75,32 @@ namespace AFCSTEM.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                string userId = Input.FirstName.Substring(0, 1);
-                userId += Input.LastName.Substring(0, 1);
-                userId += String.Format("{0:d6}", (DateTime.Now.Ticks / 100000) % 100000);
-                var user = new ApplicationUser { UserName = userId, FirstName = Input.FirstName, LastName = Input.LastName, School = Input.School };
-                var result = await _userManager.CreateAsync(user, Input.FirstName);
-                if (result.Succeeded)
+                if (Input.Token.Equals("STEM2020AFC"))
                 {
-                    _logger.LogInformation("User created a new account with password.");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("AccountDetails");
-                    //return LocalRedirect(returnUrl);
+                    string userId = Input.FirstName.Substring(0, 1);
+                    userId += Input.LastName.Substring(0, 1);
+                    userId += String.Format("{0:d6}", (DateTime.Now.Ticks / 100000) % 100000);
+                    var user = new ApplicationUser { UserName = userId, FirstName = Input.FirstName, LastName = Input.LastName, School = Input.School };
+                    var result = await _userManager.CreateAsync(user, Input.FirstName);
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("User created a new account with password.");
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("AccountDetails");
+                        //return LocalRedirect(returnUrl);
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-                foreach (var error in result.Errors)
+                else
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ModelState.AddModelError(string.Empty, "Token Invalid.");
+                    return Page();
                 }
             }
+            
 
             // If we got this far, something failed, redisplay form
             return Page();
