@@ -1435,7 +1435,7 @@
         var midCentreC = 0;
         var midTackles = 0;
 
-        for (var i = 1; i < document.getElementById("selectedTable").rows.length+1; i++) {
+        for (var i = 1; i < document.getElementById("selectedTable").rows.length+2; i++) {
             var id = "Stats " + i;
 
             if (document.getElementById(id) != null) {
@@ -1443,57 +1443,57 @@
                 if (document.getElementById(id).style.display == "") {
 
                     //defenders
-                    if (table.rows[i-1].cells[0].innerHTML == "DEF") {
-                        defPrice += parseInt(table.rows[i - 1].cells[5].innerHTML);
-                        defGoals += parseInt(table.rows[i - 1].cells[6].innerHTML);
-                        defBehinds += parseInt(table.rows[i - 1].cells[7].innerHTML);
-                        defMatches += parseInt(table.rows[i - 1].cells[8].innerHTML);
-                        defHeight += parseInt(table.rows[i - 1].cells[4].innerHTML);
-                        defAge += parseInt(table.rows[i - 1].cells[3].innerHTML);
-                        defKicks += parseInt(table.rows[i - 1].cells[9].innerHTML);
-                        defHandballs += parseInt(table.rows[i - 1].cells[10].innerHTML);
-                        defDisposals += parseInt(table.rows[i - 1].cells[11].innerHTML);
-                        defMarks += parseInt(table.rows[i - 1].cells[12].innerHTML);
-                        defHO += parseInt(table.rows[i - 1].cells[13].innerHTML);
-                        defClearances += parseInt(table.rows[i - 1].cells[14].innerHTML);
-                        defCentreC += parseInt(table.rows[i - 1].cells[15].innerHTML);
-                        defTackles += parseInt(table.rows[i - 1].cells[16].innerHTML);
+                    if (table.rows[i - 2].cells[0].innerHTML == "DEF") {
+                        defPrice += parseInt(table.rows[i - 2].cells[5].innerHTML);
+                        defGoals += parseInt(table.rows[i - 2].cells[6].innerHTML);
+                        defBehinds += parseInt(table.rows[i - 2].cells[7].innerHTML);
+                        defMatches += parseInt(table.rows[i - 2].cells[8].innerHTML);
+                        defHeight += parseInt(table.rows[i - 2].cells[4].innerHTML);
+                        defAge += parseInt(table.rows[i - 2].cells[3].innerHTML);
+                        defKicks += parseInt(table.rows[i - 2].cells[9].innerHTML);
+                        defHandballs += parseInt(table.rows[i - 2].cells[10].innerHTML);
+                        defDisposals += parseInt(table.rows[i - 2].cells[11].innerHTML);
+                        defMarks += parseInt(table.rows[i - 2].cells[12].innerHTML);
+                        defHO += parseInt(table.rows[i - 2].cells[13].innerHTML);
+                        defClearances += parseInt(table.rows[i - 2].cells[14].innerHTML);
+                        defCentreC += parseInt(table.rows[i - 2].cells[15].innerHTML);
+                        defTackles += parseInt(table.rows[i - 2].cells[16].innerHTML);
                         //number of defenders in selected team.
                         defCount++;
                     }
-                    else if (table.rows[i-1].cells[0].innerHTML == "FWD") {
-                        fwdPrice += parseInt(table.rows[i - 1].cells[5].innerHTML);
-                        fwdGoals += parseInt(table.rows[i - 1].cells[6].innerHTML);
-                        fwdBehinds += parseInt(table.rows[i - 1].cells[7].innerHTML);
-                        fwdMatches += parseInt(table.rows[i - 1].cells[8].innerHTML);
-                        fwdHeight += parseInt(table.rows[i - 1].cells[4].innerHTML);
-                        fwdAge += parseInt(table.rows[i - 1].cells[3].innerHTML);
-                        fwdKicks += parseInt(table.rows[i - 1].cells[9].innerHTML);
-                        fwdHandballs += parseInt(table.rows[i - 1].cells[10].innerHTML);
-                        fwdDisposals += parseInt(table.rows[i - 1].cells[11].innerHTML);
-                        fwdMarks += parseInt(table.rows[i - 1].cells[12].innerHTML);
-                        fwdHO += parseInt(table.rows[i - 1].cells[13].innerHTML);
-                        fwdClearances += parseInt(table.rows[i - 1].cells[14].innerHTML);
-                        fwdCentreC += parseInt(table.rows[i - 1].cells[15].innerHTML);
-                        fwdTackles += parseInt(table.rows[i - 1].cells[16].innerHTML);
+                    else if (table.rows[i - 2].cells[0].innerHTML == "FWD") {
+                        fwdPrice += parseInt(table.rows[i - 2].cells[5].innerHTML);
+                        fwdGoals += parseInt(table.rows[i - 2].cells[6].innerHTML);
+                        fwdBehinds += parseInt(table.rows[i - 2].cells[7].innerHTML);
+                        fwdMatches += parseInt(table.rows[i - 2].cells[8].innerHTML);
+                        fwdHeight += parseInt(table.rows[i - 2].cells[4].innerHTML);
+                        fwdAge += parseInt(table.rows[i - 2].cells[3].innerHTML);
+                        fwdKicks += parseInt(table.rows[i - 2].cells[9].innerHTML);
+                        fwdHandballs += parseInt(table.rows[i - 2].cells[10].innerHTML);
+                        fwdDisposals += parseInt(table.rows[i - 2].cells[11].innerHTML);
+                        fwdMarks += parseInt(table.rows[i - 2].cells[12].innerHTML);
+                        fwdHO += parseInt(table.rows[i - 2].cells[13].innerHTML);
+                        fwdClearances += parseInt(table.rows[i - 2].cells[14].innerHTML);
+                        fwdCentreC += parseInt(table.rows[i - 2].cells[15].innerHTML);
+                        fwdTackles += parseInt(table.rows[i - 2].cells[16].innerHTML);
                         //number of forwards
                         fwdCount++;
                     }
                     else {
-                        midPrice += parseInt(table.rows[i - 1].cells[5].innerHTML);
-                        midGoals += parseInt(table.rows[i - 1].cells[6].innerHTML);
-                        midBehinds += parseInt(table.rows[i - 1].cells[7].innerHTML);
-                        midMatches += parseInt(table.rows[i - 1].cells[8].innerHTML);
-                        midHeight += parseInt(table.rows[i - 1].cells[4].innerHTML);
-                        midAge += parseInt(table.rows[i - 1].cells[3].innerHTML);
-                        midKicks += parseInt(table.rows[i - 1].cells[9].innerHTML);
-                        midHandballs += parseInt(table.rows[i - 1].cells[10].innerHTML);
-                        midDisposals += parseInt(table.rows[i - 1].cells[11].innerHTML);
-                        midMarks += parseInt(table.rows[i - 1].cells[12].innerHTML);
-                        midHO += parseInt(table.rows[i - 1].cells[13].innerHTML);
-                        midClearances += parseInt(table.rows[i - 1].cells[14].innerHTML);
-                        midCentreC += parseInt(table.rows[i - 1].cells[15].innerHTML);
-                        midTackles += parseInt(table.rows[i - 1].cells[16].innerHTML);
+                        midPrice += parseInt(table.rows[i - 2].cells[5].innerHTML);
+                        midGoals += parseInt(table.rows[i - 2].cells[6].innerHTML);
+                        midBehinds += parseInt(table.rows[i - 2].cells[7].innerHTML);
+                        midMatches += parseInt(table.rows[i - 2].cells[8].innerHTML);
+                        midHeight += parseInt(table.rows[i - 2].cells[4].innerHTML);
+                        midAge += parseInt(table.rows[i - 2].cells[3].innerHTML);
+                        midKicks += parseInt(table.rows[i - 2].cells[9].innerHTML);
+                        midHandballs += parseInt(table.rows[i - 2].cells[10].innerHTML);
+                        midDisposals += parseInt(table.rows[i - 2].cells[11].innerHTML);
+                        midMarks += parseInt(table.rows[i - 2].cells[12].innerHTML);
+                        midHO += parseInt(table.rows[i - 2].cells[13].innerHTML);
+                        midClearances += parseInt(table.rows[i - 2].cells[14].innerHTML);
+                        midCentreC += parseInt(table.rows[i - 2].cells[15].innerHTML);
+                        midTackles += parseInt(table.rows[i - 2].cells[16].innerHTML);
                         //number of mid/rucks
                         midCount++;
                     }
@@ -1504,15 +1504,36 @@
 
 
 
+
+
         }
+
+        if (midMatches != 0) {
+            midMatches = midMatches / midCount;
+        }
+
+        if (fwdMatches != 0) {
+            fwdMatches = fwdMatches / fwdCount;
+        }
+
+        if (defMatches != 0) {
+            console.log(" IN ")
+            defMatches = defMatches / defCount;
+        }
+
+
+
+
+
         //defenders table update
+
         document.getElementById("defPrice").innerHTML = parseInt(defPrice / defCount);
         document.getElementById("defGoals").innerHTML = parseFloat((defGoals / defMatches) / defCount).toFixed(2);
         document.getElementById("defBehinds").innerHTML = parseFloat((defBehinds / defMatches) / defCount).toFixed(2);
-        document.getElementById("defMatches").innerHTML = parseInt(defMatches / defCount);
+        document.getElementById("defMatches").innerHTML = parseFloat(defMatches).toFixed(2);
         document.getElementById("defHeight").innerHTML = parseInt(defHeight / defCount);
         document.getElementById("defAge").innerHTML = parseInt(defAge / defCount);
-        document.getElementById("defKicks").innerHTML = parseFloat((defKicks/defMatches) / defCount).toFixed(2);
+        document.getElementById("defKicks").innerHTML = parseFloat((defKicks / defMatches) / defCount).toFixed(2);
         document.getElementById("defHandballs").innerHTML = parseFloat((defHandballs / defMatches) / defCount).toFixed(2);
         document.getElementById("defDisposals").innerHTML = parseFloat((defDisposals / defMatches) / defCount).toFixed(2);
         document.getElementById("defMarks").innerHTML = parseFloat((defMarks / defMatches) / defCount).toFixed(2);
@@ -1524,7 +1545,7 @@
         document.getElementById("fwdPrice").innerHTML = parseInt(fwdPrice / fwdCount);
         document.getElementById("fwdGoals").innerHTML = parseFloat((fwdGoals / fwdMatches) / fwdCount).toFixed(2);
         document.getElementById("fwdBehinds").innerHTML = parseFloat((fwdBehinds / fwdMatches) / fwdCount).toFixed(2);
-        document.getElementById("fwdMatches").innerHTML = parseInt(fwdMatches / fwdCount);
+        document.getElementById("fwdMatches").innerHTML = parseFloat(fwdMatches).toFixed(2);
         document.getElementById("fwdHeight").innerHTML = parseInt(fwdHeight / fwdCount);
         document.getElementById("fwdAge").innerHTML = parseInt(fwdAge / fwdCount);
         document.getElementById("fwdKicks").innerHTML = parseFloat((fwdKicks / fwdMatches) / fwdCount).toFixed(2);
@@ -1539,7 +1560,7 @@
         document.getElementById("midPrice").innerHTML = parseInt(midPrice / midCount);
         document.getElementById("midGoals").innerHTML = parseFloat((midGoals / midMatches) / midCount).toFixed(2);
         document.getElementById("midBehinds").innerHTML = parseFloat((midBehinds / midMatches) / midCount).toFixed(2);
-        document.getElementById("midMatches").innerHTML = parseInt(midMatches / midCount);
+        document.getElementById("midMatches").innerHTML = parseFloat(midMatches).toFixed(2);
         document.getElementById("midHeight").innerHTML = parseInt(midHeight / midCount);
         document.getElementById("midAge").innerHTML = parseInt(midAge / midCount);
         document.getElementById("midKicks").innerHTML = parseFloat((midKicks / midMatches) / midCount).toFixed(2);
@@ -1559,42 +1580,40 @@
 
         graph.font = "12px sans-serif";
 
+        var gridText = 0;
+        for (var i = 380; i > 0; i) {
+
+            graph.fillStyle = "#DCDCDC"
+            graph.fillRect(20, i, 660, 1);
+            graph.fillStyle = "black";
+            if (gridText != 0 && gridText != 35) {
+                graph.fillText(gridText, 5, i)
+
+            }
+            i -= 50;
+            gridText += 5;
+        }
 
         //graph lines
         graph.fillStyle = "black";
-        graph.fillRect(0, 0, 1, 380);
-        graph.fillRect(0, 380, 1000, 2);
-        graph.fillRect(50, 377, 2, 5);
-        graph.fillRect(100, 377, 2, 10);
-        graph.fillText("10", 95, 397);
 
 
-
-        graph.fillStyle = "#DCDCDC"
-        for (var i = 50; i < 600; i) {
-            graph.fillRect(i, 0, 1, 378);
-
-            i += 50;
-        }
-
-        graph.fillRect(0, 80, 700, 1);
-        graph.fillRect(0, 160, 700, 1); 
-        graph.fillRect(0, 240, 700, 1);
-        graph.fillRect(0, 320, 700, 1);
+        graph.fillRect(20, 30, 1, 350);
+        graph.fillRect(20, 380, 660, 1)
+        graph.fillRect(20, 30, 660, 1)
+        graph.fillRect(680, 30, 1, 350);
 
 
 
 
 
 
-        graph.fillStyle = "black"
-        graph.fillRect(150, 377, 2, 5);
-        graph.fillRect(200, 377, 2, 10);
-        graph.fillText("20", 195, 397);
-        graph.fillRect(250, 377, 2, 5);
-        graph.fillRect(300, 377, 2, 10);
-        graph.fillText("30", 295, 397);
-        graph.fillText(" Total  ", 350, 397);
+
+
+
+
+
+
 
 
 
@@ -1606,83 +1625,130 @@
         graph.fillText("Kicks: ", 260, 20);
         graph.fillText("Handballs: ", 360, 20);
         graph.fillText("Disposals: ", 460, 20);
-        graph.fillText("Defenders", 600, 50);
-        graph.fillText("Midfielders/Rucks ", 600, 130);
-        graph.fillText("Forwards", 600, 210);
-        graph.fillText("Team", 600, 290);
+        graph.fillRect(175, 380, 1, 20);
+        graph.fillRect(350, 380, 1, 20);
+        graph.fillRect(525, 380, 1, 20);
+        graph.fillText("Defenders", 50, 393);
+        graph.fillText("Midfielders/Rucks ", 220, 393);
+        graph.fillText("Forwards", 405, 393);
+        graph.fillText("Team", 600, 393);
 
 
         //defenders
         graph.fillStyle = "#e31937";
         graph.fillRect(300, 10, 10, 10);
-        graph.fillRect(0, 10, 10 * (defKicks / defMatches), 20);
+        graph.fillRect(30, 380 - (10 * (defKicks / defMatches / defCount)), 20, 10 * (defKicks / defMatches / defCount));
         graph.fillStyle = "black";
-        graph.fillText(parseInt(defKicks / defMatches), 10 * (defKicks / defMatches) + 5, 22)
+
+        //text
+        graph.fillText(parseInt(defKicks / defMatches / defCount), 34, 380 - (10 * (defKicks / defMatches / defCount) + 2));
 
 
         graph.fillStyle = "#ffd200";
         graph.fillRect(420, 10, 10, 10);
-        graph.fillRect(0, 30, 10 * (defHandballs / defMatches), 20);
+        graph.fillRect(70, 380 - (10 * (defHandballs / defMatches / defCount)), 20, 10 * (defHandballs / defMatches / defCount));
         graph.fillStyle = "black";
-        graph.fillText(parseInt(defHandballs / defMatches), 10 * (defHandballs / defMatches) + 5, 42)
+
+        graph.fillText(parseInt(defHandballs / defMatches / defCount), 74, 380 - (10 * (defHandballs / defMatches / defCount) + 2))
 
 
         graph.fillStyle = "#33619e";
         graph.fillRect(520, 10, 10, 10);
-        graph.fillRect(0, 50, 10 * (defDisposals / defMatches), 20);
+        graph.fillRect(110, 380 - (10 * (defDisposals / defMatches / defCount)), 20, 10 * (defDisposals / defMatches / defCount));
         graph.fillStyle = "black";
-        graph.fillText(parseInt(defDisposals / defMatches), 10 * (defDisposals / defMatches) + 5, 62)
+
+        graph.fillText(parseInt(defDisposals / defMatches / defCount), 114, 380 - (10 * (defDisposals / defMatches / defCount) + 2))
 
 
         //midfields/ruck
         graph.fillStyle = "#e31937";
-        graph.fillRect(0, 90, 10 * (midKicks / midMatches), 20);
+        graph.fillRect(215, 380 - (10 * (midKicks / midCount / midMatches)), 20, 10 * (midKicks / midMatches / midCount));
         graph.fillStyle = "black";
-        graph.fillText(parseInt(midKicks / midMatches), 10 * (midKicks / midMatches) + 5, 102)
+        graph.fillText(parseInt(midKicks / midMatches / midCount), 219, 380 - (10 * (midKicks / midMatches / midCount) + 2))
 
         graph.fillStyle = "#ffd200";
-        graph.fillRect(0, 110, 10 * (midHandballs / midMatches), 20);
+        graph.fillRect(265, 380 - (10 * (midHandballs / midMatches / midCount)), 20, 10 * (midHandballs / midMatches / midCount));
         graph.fillStyle = "black";
-        graph.fillText(parseInt(midHandballs / midMatches), 10 * (midHandballs / midMatches) + 5, 122);
+        graph.fillText(parseInt(midHandballs / midMatches / midCount), 269, 380 - (10 * (midHandballs / midMatches / midCount) + 2));
 
         graph.fillStyle = "#33619e";
-        graph.fillRect(0, 130, 10 * (midDisposals / midMatches), 20);
+        graph.fillRect(315, 380 - (10 * (midDisposals / midMatches / midCount)), 20, 10 * (midDisposals / midMatches / midCount));
+
         graph.fillStyle = "black";
-        graph.fillText(parseInt(midDisposals / midMatches), 10 * (midDisposals / midMatches) + 5, 142);
+        graph.fillText(parseInt(midDisposals / midMatches / midCount), 319, 380 - (10 * (midDisposals / midMatches / midCount) + 2));
 
 
         //forwards
         graph.fillStyle = "#e31937";
-        graph.fillRect(0, 170, 10 * (fwdKicks / fwdMatches), 20);
+        graph.fillRect(390, 380 - (10 * (fwdKicks / fwdMatches / fwdCount)), 20, 10 * (fwdKicks / fwdMatches / fwdCount));
         graph.fillStyle = "black";
-        graph.fillText(parseInt(fwdKicks / fwdMatches), 10 * (fwdKicks / fwdMatches) + 5, 182);
+        graph.fillText(parseInt(fwdKicks / fwdMatches / fwdCount), 394, 380 - (10 * (fwdKicks / fwdMatches / fwdCount) + 2));
 
         graph.fillStyle = "#ffd200";
-        graph.fillRect(0, 190, 10 * (fwdHandballs / fwdMatches), 20);
+        graph.fillRect(430, 380 - (10 * (fwdHandballs / fwdMatches / fwdCount)), 20, 10 * (fwdHandballs / fwdMatches / fwdCount));
         graph.fillStyle = "black";
-        graph.fillText(parseInt(fwdHandballs / fwdMatches), 10 * (fwdHandballs / fwdMatches) + 5, 202);
+        graph.fillText(parseInt(fwdHandballs / fwdMatches / fwdCount), 434, 380 - (10 * (fwdHandballs / fwdMatches / fwdCount) + 2));
 
         graph.fillStyle = "#33619e";
-        graph.fillRect(0, 210, 10 * (fwdDisposals / fwdMatches), 20);
+        graph.fillRect(470, 380 - (10 * (fwdDisposals / fwdMatches / fwdCount)), 20, 10 * (fwdDisposals / fwdMatches / fwdCount));
         graph.fillStyle = "black";
-        graph.fillText(parseInt(fwdDisposals / fwdMatches), 10 * (fwdDisposals / fwdMatches) + 5, 222);
+        graph.fillText(parseInt(fwdDisposals / fwdMatches / fwdCount), 474, 380 - (10 * (fwdDisposals / fwdMatches / fwdCount) + 2));
 
-        //total
+        ////total
+
+        var defkick1 = (defKicks / defMatches) / defCount;
+        var fwdkick1 = (fwdKicks / fwdMatches) / fwdCount;
+        var midkick1 = (midKicks / midMatches) / midCount;
+        var defhand1 = (defHandballs / defMatches) / defCount;
+        var fwdhand1 = (fwdHandballs / fwdMatches) / fwdCount;
+        var midhand1 = (midHandballs / midMatches) / midCount;
+        var defdis1 = (defDisposals / defMatches) / defCount;
+        var fwddis1 = (fwdDisposals / fwdMatches) / fwdCount;
+        var middis1 = (midDisposals / midMatches) / midCount;
+
+        var count = 3;
+        if (midCount == 0) {
+            count--;
+            midkick1 = 0;
+            midhand1 = 0;
+            middis1 = 0;
+        }
+        if (fwdCount == 0) {
+            count--;
+            fwdkick1 = 0;
+            fwdhand1 = 0;
+            fwddis1 = 0;
+        }
+        if (defCount == 0) {
+            count--;
+            defhand1 = 0;
+            defkick1 = 0;
+            defdis1 = 0;
+        }
+
+
+
+
+        var totalkicks1 = (defkick1 + fwdkick1 + midkick1) / count;
+        var totalhand1 = (defhand1 + fwdhand1 + midhand1) / count;
+        var totaldis1 = (defdis1 + middis1 + fwddis1) / count;
+
+
 
         graph.fillStyle = "#e31937";
-        graph.fillRect(0, 250, 10 * ((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)), 20);
+        graph.fillRect(565, 380 - 10 * (totalkicks1), 20, 10 * (totalkicks1));
         graph.fillStyle = "black";
-        graph.fillText(parseInt((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)), 10 * ((defKicks + midKicks + fwdKicks) / (midMatches + fwdMatches + defMatches)) + 5, 262);
+        graph.fillText(parseInt(totalkicks1), 569, 380 - (10 * (totalkicks1) + 2));
 
         graph.fillStyle = "#ffd200";
-        graph.fillRect(0, 270, 10 * ((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)), 20);
+        graph.fillRect(605, 380 - 10 * (totalhand1), 20, 10 * (totalhand1));
         graph.fillStyle = "black";
-        graph.fillText(parseInt((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)), 10 * ((defHandballs + midHandballs + fwdHandballs) / (midMatches + fwdMatches + defMatches)) + 5, 282);
+        graph.fillText(parseInt(totalhand1), 609, 380 - (10 * (totalhand1) + 2));
 
         graph.fillStyle = "#33619e";
-        graph.fillRect(0, 290, 10 * ((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)), 20);
+        graph.fillRect(645, 380 - 10 * (totaldis1), 20, 10 * (totaldis1));
         graph.fillStyle = "black";
-        graph.fillText(parseInt((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)), 10 * ((defDisposals + midDisposals + fwdDisposals) / (midMatches + fwdMatches + defMatches)) + 5, 302);
+        graph.fillText(parseInt(totaldis1), 649, 380 - (10 * (totaldis1) + 2));
 
 
     }// end of function
@@ -1752,7 +1818,7 @@
             data: teamSelection,
             traditional: true
         }).done(function (data) {
-            alert(data.success);
+            //alert(data.success);
         }).fail(function (jqXhr, textStatus, errorThrown) {
             alert("error");
         });
@@ -1804,7 +1870,8 @@
             }
         }
         updatePos();
-        updateCheckpoint()
+        updateCheckpoint();
+        saveTeam();
     }
 
     function pdfTeam() {
@@ -1891,6 +1958,7 @@
         }
         updatePos();
         updateCheckpoint();
+        saveTeam();
     }
 
     // update checkpoint count
