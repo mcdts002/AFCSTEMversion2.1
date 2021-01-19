@@ -50,6 +50,12 @@ namespace AFCSTEM
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
+                options.HttpsPort = 443;
+            });
+
             services.AddScoped<IPlayerRepository, SQLPlayerRepository>();
             services.AddScoped<ITeamRepository, SQLTeamRepository>();
         }
