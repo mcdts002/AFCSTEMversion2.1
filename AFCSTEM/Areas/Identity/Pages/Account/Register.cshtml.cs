@@ -75,7 +75,7 @@ namespace AFCSTEM.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                if (Input.Token.Equals("STEM2020AFC"))
+                if (Input.Token.Equals("STEM2021"))
                 {
                     string userId = Input.FirstName.Substring(0, 1);
                     userId += Input.LastName.Substring(0, 1);
