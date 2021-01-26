@@ -56,14 +56,13 @@
     /*the side select options container*/
     #wholeRow {
         top: 20px;
-        width: 100%; 
+        width: 100%;
     }
     /*Hide the default radio buttons*/
-    input[type=radio]{
+    input[type=radio] {
         opacity: 0;
         width: 0;
         height: 0;
-        
     }
     /*Style the buttons to choose pre/post surveys */
     label {
@@ -82,7 +81,7 @@
         color: black;
         text-align: center;
     }
-    /* when mouse is hoved on label*/
+        /* when mouse is hoved on label*/
         label:hover {
             background-color: #33619e;
             cursor: pointer;
@@ -116,120 +115,121 @@
             <div id="selSchool">
                 <select id="s1" name="Schools" onchange="choseSurvey()">
                     <option value="" disabled selected>Please select your school</option>
-                    <option value="BrightonPS" id="BrightonPS" onclick="choseSurvey()">Brighton PS</option>
-                    <option value="WhyallaPS" id="WhyallaPS" onclick="choseSurvey()">Whyalla PS</option>
-                    <option value="Rostrevor" id="Rostrevor" onclick="choseSurvey()">Rostrevor</option>
-                    <option value="CharlesCampbell" id="CharlesCampbell" onclick="choseSurvey()">Charles Campbell</option>
-                    <option value="TMC" id="TMC" onclick="choseSurvey()">TMC</option>
-                    <option value="Prospect" id="Prospect" onclick="choseSurvey()">Prospect</option>
-                    <option value="Merecedes" id="Merecedes" onclick="choseSurvey()">Merecedes</option>
+                    <option value="MadisonParkSchool" id="MadisonParkSchool" onclick="choseSurvey()">Madison Park School</option>
+                    <option value="GoldenGroveHigh" id="GoldenGroveHigh" onclick="choseSurvey()">Golden Grove High</option>
+                    <option value="HendonPS" id="HendonPS" onclick="choseSurvey()">Hendon PS</option>
+                    <option value="ReynellaEastCollege" id="ReynellaEastCollege" onclick="choseSurvey()">Reynella East College</option>
+                    <option value="ReynellaSouthSchool" id="ReynellaSouthSchool" onclick="choseSurvey()">Reynella South School</option>
+                    <option value="ThePines" id="ThePines" onclick="choseSurvey()">ThePines</option>
+                    <option value="WestBeachPrimary" id="WestBeachPrimary" onclick="choseSurvey()">West Beach Primary</option>
                     <option value="StPauls" id="StPauls" onclick="choseSurvey()">St Pauls</option>
-                    <option value="Salisbury" id="Salisbury" onclick="choseSurvey()">Salisbury</option>
+                    <option value="RenmarkNorthPrimarySchool" id="RenmarkNorthPrimarySchool" onclick="choseSurvey()">Renmark North Primary School</option>
+                    <option value="LoxtonPrimarySchool" id="LoxtonPrimarySchool" onclick="choseSurvey()">Loxton Primary School</option>
                 </select>
             </div>
         </div>
     </div>
     <!--Each div element contains the embed code for the pre or post surveys -->
-    <!--Brighton PS-->
-    <div id="preBrightonPS" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScJgzwO1kWZ-1OZPnYxQXfxsdSc8Z7yqdrWgpQcXB8KOgbPYg/viewform?embedded=true"
+    <!--MadisonParkSchool-->
+    <div id="preMadisonParkSchool" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc92_amOM8aPSuBySjDvbYmRRVzpM--ZicaNMcEuY7ZOH6drg/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <div id="postBrightonPS" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZqZHLWYmsyX11ELEpthB-SxRNyNQtgFVwjpMJ4qLw6M0iaw/viewform?embedded=true"
+    <div id="postMadisonParkSchool" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeH3zaOe2fws3rPgkYPKDCAW8TZPCqct6hAmZ46JvB7np8_2Q/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <!--Whyalla PS-->
-    <div id="preWhyallaPS" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfesMJ-W66axxe6d2Z7ArlInNclzcj8oeBdKdaCZTF17u-nkQ/viewform?embedded=true"
+    <!--GoldenGroveHigh-->
+    <div id="preGoldenGroveHigh" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeJjgHlj5lu679j7XnLqoSBllqmaW6KfQ31F58KczvhWJwL3w/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <div id="postWhyallaPS" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScBmzYDnoe67MFeqzpznxTXlMHdZj23cWouG6e4RycvNkNTzQ/viewform?embedded=true"
+    <div id="postGoldenGroveHigh" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScfCXnKjmH7B43Y3ZSxCZsonHxTgLx7TGgzF6cxGqquUgzN4w/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <!--Rostrevor-->
-    <div id="preRostrevor" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdVCWapOzLokxwQwr0M_xvTGtDCEGD7beNbn3KEx8GgqGTiWQ/viewform?embedded=true"
+    <!--HendonPS-->
+    <div id="preHendonPS" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf4Fp9eTtAk4feYyZ94zF1YwXJr8TVZO6iQZuZBSO_3DV9vWA/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <div id="postRostrevor" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSemwJDAgjOdsbzb_4QghntY3wrQXJk8w4xhGbt8yR6hPK678w/viewform?embedded=true"
+    <div id="postHendonPS" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfWYdtKVG7-AGIM61H27h_chKcsB0ZypD_cNPwIctEj6SxtFg/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <!--Charles Campbell-->
-    <div id="preCharlesCampbell" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdHDzahvzvMYq8RVmmiSIgiOX8U8pNzlVgnzgmgM2rqH_XzlA/viewform?embedded=true"
+    <!--ReynellaEastCollege-->
+    <div id="preReynellaEastCollege" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdzM08TZBYQ_6hecHQoAveIgSAT_ZVK2m-VtTJYOE--R1VpNw/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <div id="postCharlesCampbell" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe-nlW0LgWFxaIRrztQ7sMB2qYefB0zTXVCL_hqWpdzhgLFag/viewform?embedded=true"
+    <div id="postReynellaEastCollege" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeyuwgPccJ-iRZhCT613bGjebfZxqSTHTDDawSzdCy5g9VsGg/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <!--TMC-->
-    <div id="preTMC" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSepGdvb5wTbVUggWG05t3tJS7dN6nxuAltcWrN78kwaOsdXNw/viewform?embedded=true"
+    <!--Reynella South School -->
+    <div id="preReynellaSouthSchool" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfQj9hPup6ndQZ9xntSujghV4pebBrgkCEIk9uuMmivvR84Gg/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <div id="postTMC" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSduh-frU-Kgi7QdzTarAnYg_SNvMW5yQWP6-TNO0UgSGp0hbg/viewform?embedded=true"
+    <div id="postReynellaSouthSchool" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe49JRW-N1hxqqTYaHrwOd-_fSgwhKXX615udEWeVjDHFaogA/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <!--Prospect-->
-    <div id="preProspect" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSchw4OvE-nxhIvLMw3l5jkw-SfVDO7vDHQuIU6Pet-hIP7oxg/viewform?embedded=true"
+    <!--The Pines -->
+    <div id="preThePines" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfylKnw6o7Ef4iZawhVR7nVq48PzTt-1lm6703cVOut4rAHdQ/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <div id="postProspect" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSemk5GkezEUHBpJYvd8xu8G_-Wcd5QHdUKW9nC6lqE-h_-keQ/viewform?embedded=true"
+    <div id="postThePines" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf00REDOW6eDWvSJ2XnBmcjGhLZb8ulUpflgN_Oexiu2XTNuA/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <!--Merecedes-->
-    <div id="preMerecedes" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdMm7QyqZoDsvwe_ijiV8GiYGL6BebA8QGxd3Ko1Jz3RQSyUA/viewform?embedded=true"
+    <!--West Beach Primary -->
+    <div id="preWestBeachPrimary" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdiVPBCwo3lWlcWKT4ebtQW6m1OJhlwZEoifL3kpWX4t9Fh2A/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <div id="postMerecedes" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScPEh7JaHG8-AVNE9gMrTe7qsZwTZFaIgnpuh53YcW-X8Nnmw/viewform?embedded=true"
+    <div id="postWestBeachPrimary" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdeg6TFcWPuOMUSkUMqcDNrxtKDXFEVVqWMDesqriWFBJ62hw/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
@@ -237,28 +237,47 @@
 
     <!--St Pauls-->
     <div id="preStPauls" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScwHRjCpebGXtEgJ3j-LamsmnxChcq5G8NtanC-dsFJ8rHDOQ/viewform?embedded=true"
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSePhY79geBT-PCeC3kVh_3ciCh1ogS0xvWObB3v6X6uu74P7g/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
     <div id="postStPauls" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScj9uYjDla_yXK0J3V2X0P4G5YWd9UCHE17bBg-oYr0k6JWvg/viewform?embedded=true"
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd0ZW3RxtAhvyvGJrz_R124uN32DF_EG3YVUfqocne95xRmnQ/viewform?embedded=true"
                 frameborder="0" marginheight="0" marginwidth="0">
             Loading…
         </iframe>
     </div>
 
-    <!--Salisbury -->
-    <div id="preSalisbury" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc5SYIE5GVWb2kT4ssCwN7ZrEpgYnwtqtU0wIGsAgcbplRqjg/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <!--Renmark North Primary School -->
+    <div id="preRenmarkNorthPrimarySchool" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScvaBaIn2u2NenzdEIQLaiUlbdwDkGx1Ww-xLBwYfXn1mCWoQ/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
     </div>
 
-    <div id="postSalisbury" class="tabcontent col-md-9">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf5-ltAFj1JpsMQfCScEy1HN8miDtYeFB5V5wvIFx8e2M7omw/viewform?embedded=true"
-                frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    <div id="postRenmarkNorthPrimarySchool" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSc-Tni9GYhGvq7hGmQsi0GQ0wbVObi-KOygxPCoEO-zKyeyyA/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <!--Loxton Primary School  -->
+    <div id="preLoxtonPrimarySchool" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSceGwz7_sbF_OC3JL9tyzt0-bChmOtyUTHOdfi_aRmO3rTKpg/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
+    </div>
+
+    <div id="postLoxtonPrimarySchool" class="tabcontent col-md-9">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdNF2KDAOzsVryFMDGKP-CuS9K9wIk0ekMyHkOCnQFwWR3_rg/viewform?embedded=true"
+                frameborder="0" marginheight="0" marginwidth="0">
+            Loading…
+        </iframe>
     </div>
 
 </div>
@@ -281,15 +300,15 @@
         document.getElementById(survey).style.display = "block";
         document.getElementById("s1").className += " active";
     }
-    // Method to set value of the currently clicked radio button. 
+    // Method to set value of the currently clicked radio button.
     // When called, choseSurvey is called through inline 'onclick' to display the school's survey
     function cSurvey(evt) {
         var school = document.getElementById("s1").value;
         prePost = evt.currentTarget.value;
         document.getElementById(school).click();
-                
+
     }
-    // Method to fix the navbar to the top on scroll. 
+    // Method to fix the navbar to the top on scroll.
     // Adds to nav tag class list
     function stickyNavbar() {
         var element = document.getElementsByTagName('nav');
